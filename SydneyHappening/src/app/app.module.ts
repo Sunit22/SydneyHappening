@@ -7,12 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { EventsComponent } from './events/events.component';
-
-const appRoutes: Routes = [
-  { path: '', component: LoginComponent}, 
-  { path: 'dashboard', component: DashboardComponent},
-  { path: 'events', component: EventsComponent }  
-]
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -20,14 +15,19 @@ const appRoutes: Routes = [
     LoginComponent,
     DashboardComponent,
     RegistrationComponent,
-    EventsComponent
+    EventsComponent,
+    HeaderComponent
   ],
+
   imports: [
     BrowserModule,
-    RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
-    )
+    RouterModule.forRoot([
+
+      { path: '', component: LoginComponent}, 
+      { path: 'dashboard', component: DashboardComponent},
+      { path: 'events', component: EventsComponent },
+      { path: 'registration', component: RegistrationComponent }    
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]
