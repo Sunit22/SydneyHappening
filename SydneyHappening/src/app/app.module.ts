@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { EventsComponent } from './events/events.component';
 import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { HeaderComponent } from './header/header.component';
     DashboardComponent,
     RegistrationComponent,
     EventsComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
 
   imports: [
