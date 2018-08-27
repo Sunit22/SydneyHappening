@@ -2,11 +2,20 @@
 
 Sydney Happening is a group project by Sunit, Mayur and Saeed for Advance Internet Programming. 
 
-SydneyHappening is a web-application where users can login and post events for other users to register.
-The users can view the events posted by other users as well. 
-Some potential features which we plan to include
--location features
--message alert
 
+Sydney happening is an application for registering and posting events. 
+Few of the features of the application include: 
+- Register to an event.
+- Post an event. 
+- Search for event.
+
+Few of the planned further development include:
+- Location services.
+- Mobile sms/email communication. 
 
 We have followed the standard component design for easy of use and understandibility. 
+
+The dashboard component is to be used as the home-page for the users. It includes all the search functionalities as well as search features for events.
+
+We have included the structure of our Database in 
+SydneyHappening/ERD/imgv2.pdf
