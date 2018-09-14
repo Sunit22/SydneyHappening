@@ -1,11 +1,12 @@
-<div class="container">
+<div class="container" ng-controller="RegistrationController">
+
     <div class="row">
-    <form class="form-horizontal">
+    <form class="form-horizontal" action="/register">
   <fieldset>
   
   <!-- Form Name -->
   <legend>Registration Form</legend>
-  
+
   <!-- Text input-->
   <div class="form-group">
     <label class="col-md-4 control-label" for="lastname">Last Name</label>  
@@ -17,7 +18,7 @@
   
   <!-- Text input-->
   <div class="form-group">
-    <label class="col-md-4 control-label" for="firstname">First Name</label>  
+    <label class="col-md-4 control-label" for="firstname">First1 Name</label>  
     <div class="col-md-5">
     <input id="firstname" name="firstname" type="text" placeholder="Your first name" class="form-control input-md" required="">
       
@@ -78,10 +79,10 @@
   <div class="form-group">
     <label class="col-md-4 control-label" for="confirmation"></label>
     <div class="col-md-4">
-      <button id="submitBtn" type="submit" name="confirmation" class="btn btn-primary">Submit</button>
+      <button id="submitBtn" onclick="javascript:testRegister();" type="button" name="confirmation" class="btn btn-primary">Submit</button>
     </div>
   </div>
-  
+  <br><br><br>
   </fieldset>
   </form>
   
