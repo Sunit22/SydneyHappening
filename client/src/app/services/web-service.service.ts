@@ -10,7 +10,7 @@ export class WebServiceService {
   constructor(private http: Http) { }
 
   getAllEvents() {
-    return this.http.get('/api/events').pipe(map(res => res.json()));
+    return this.http.get('/api/events').pipe(map(res => res.json().events));    
   }
   
 }
