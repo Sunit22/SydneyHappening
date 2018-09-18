@@ -1,89 +1,81 @@
-<div class="container">
-    <div class="row">
-    <form class="form-horizontal">
-  <fieldset>
-  
-  <!-- Form Name -->
-  <legend>Registration Form</legend>
-  
-  <!-- Text input-->
-  <div class="form-group">
-    <label class="col-md-4 control-label" for="lastname">Last Name</label>  
-    <div class="col-md-5">
-    <input id="lastname" name="lastname" type="text" placeholder="Your last name" class="form-control input-md" required="">
-      
-    </div>
-  </div>
-  
-  <!-- Text input-->
-  <div class="form-group">
-    <label class="col-md-4 control-label" for="firstname">First Name</label>  
-    <div class="col-md-5">
-    <input id="firstname" name="firstname" type="text" placeholder="Your first name" class="form-control input-md" required="">
-      
-    </div>
-  </div>
-  
-  <!-- Text input-->
-  <div class="form-group">
-    <label class="col-md-4 control-label" for="email">Email</label>  
-    <div class="col-md-5">
-    <input id="email" name="email" type="text" placeholder="Your email here" class="form-control input-md" required="">
-    <span class="help-block">xxxxxxxxx@xxxxx.xxx</span>  
-    </div>
-  </div>
-  
-  <!-- Text input-->
-  <div class="form-group">
-    <label class="col-md-4 control-label" for="username">Username</label>  
-    <div class="col-md-5">
-    <input id="username" name="username" type="text" placeholder="Your username" class="form-control input-md" required="">
-      
-    </div>
-  </div>
-  
-  <!-- Password input-->
-  <div class="form-group">
-    <label class="col-md-4 control-label" for="password">Password </label>
-    <div class="col-md-5">
-      <input id="password" name="password" type="password" placeholder="Password" class="form-control input-md" required="">
-      
-    </div>
-  </div>
-  
-  <!-- Password input-->
-  <div class="form-group">
-    <label class="col-md-4 control-label" for="confirmasipassword">Confirm Password</label>
-    <div class="col-md-5">
-      <input id="confirmasipassword" name="confirmasipassword" type="password" placeholder="Confirmation password" class="form-control input-md" required="">
-    </div>
-  </div>
-  
-  <!-- Multiple Radios (inline) -->
-  <div class="form-group">
-    <label class="col-md-4 control-label" for="gender">Gender</label>
-    <div class="col-md-4"> 
-      <label class="radio-inline" for="gender-0">
-        <input type="radio" name="gender" id="gender-0" value="Male" checked="checked">
-        Male
-      </label> 
-      <label class="radio-inline" for="gender-1">
-        <input type="radio" name="gender" id="gender-1" value="Female">
-        Female
-      </label>
-    </div>
-  </div>
  
-  <!-- Button -->
-  <div class="form-group">
-    <label class="col-md-4 control-label" for="confirmation"></label>
-    <div class="col-md-4">
-      <button id="submitBtn" type="submit" name="confirmation" class="btn btn-primary">Submit</button>
-    </div>
-  </div>
-  
-  </fieldset>
-  </form>
-  
-    </div>
-  </div>
+  <div class="container registerFormPosition" >
+    <form class="form-horizontal" role="form" method="POST" action="/login">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <h2 class="alignHeader">Register</h2>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="form-group has-danger">
+                    <label class="sr-only" for="email">E-Mail Address</label>
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
+                        <input type="text" name="email" class="form-control" id="email"
+                              placeholder="you@example.com" required autofocus>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-control-feedback">
+                    <span class="text-danger align-middle">
+                        <i class="fa fa-close"></i> Example error message
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="sr-only" for="password">Password</label>
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
+                        <input type="password" name="password" class="form-control" id="password"
+                              placeholder="Password" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-control-feedback">
+                    <span class="text-danger align-middle">
+                    <!-- Put password error message here -->    
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3"></div>
+          <div class="col-md-6">
+              <div class="form-group">
+                  <label class="sr-only" for="password">Confirm Password</label>
+                  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                      <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
+                      <input type="confirmPassword" name="confirmPassword" class="form-control" id="confirmPassword"
+                            placeholder="Confirm Password" required>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-3">
+              <div class="form-control-feedback">
+                  <span class="text-danger align-middle">
+                  <!-- Put password error message here -->    
+                  </span>
+              </div>
+          </div>
+      </div>
+
+        <div class="row" style="padding-top: 1rem">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-lg btn-block btn-primary"><i class="fa fa-sign-in"></i> Register</button>
+                <span class="pull-right"> Already have an account? <a class="btn btn-link" routerLink="/">Sign in</a></span>                
+            </div>
+        </div>
+    </form>
+</div>

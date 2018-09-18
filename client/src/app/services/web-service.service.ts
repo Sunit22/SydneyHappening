@@ -12,4 +12,5 @@ export class WebServiceService {
   getAllEvents() {
     return this.http.get('/api/events').pipe(map(res => res.json()));
   }
+  
 }
