@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { WebServiceService } from '../services/web-service.service';
-import { Event } from '../models/Event';
+import { EventService } from '../services/event.service';
+// import { Event } from '../models/Event';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,11 +11,11 @@ export class DashboardComponent implements OnInit {
   
   eventList: Event []; 
 
-  constructor(private WebService: WebServiceService) { }
+  constructor(private eventService: EventService) { }
 
   ngOnInit() {
     //Retreives events from the API
-    this.WebService.getAllEvents().subscribe(events => {     
+    this.eventService.getAllEvents().subscribe(events => {     
       this.eventList = events;
       console.log(this.eventList);
     });
