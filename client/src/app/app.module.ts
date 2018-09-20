@@ -2,7 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { WebServiceService } from './services//web-service.service';
+import { FormsModule } from '@angular/forms';
+import { EventService } from './services/event.service';
+import { AuthenticationService } from './services//authentication.service';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -25,6 +27,7 @@ import { FooterComponent } from './footer/footer.component';
 
   imports: [
     BrowserModule,
+    FormsModule,
     HttpModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
@@ -33,7 +36,7 @@ import { FooterComponent } from './footer/footer.component';
       { path: 'registration', component: RegistrationComponent }
     ])
   ],
-  providers: [WebServiceService],
+  providers: [EventService, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
