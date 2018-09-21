@@ -4,21 +4,50 @@ const express = require('express');
 const http = require('http');
 const path = require('path');
 const bodyParser = require("body-parser");
-const port = process.env.PORT || '3000';
+const mongoose  = require('mongoose');
+
+const eventRoutes = require("./routes/events");
 
 const app = express();
 
-app.set('port', port);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '/public/')));
+
+
+const DB = require('./config/DatabaseConnectionString').mongoURI;
+//Connect to DB
+mongoose
+      .connect(DB,{ useNewUrlParser: true })
+      .then(()=>console.log('DB connected.'))
+      .catch(err=>console.log(err));
+
 
 /**
  * initialize routes here
  * anything beginning with "/api" will go into this
  */
-app.use('/api', require('./routes'));
 
-const server = http.createServer(app);
+app.use('/api/events', eventRoutes);
 
-server.listen(port, () => console.log(`Server started on port : ${port}`));
+app.use((req, res, next) => {
+    const error = new Error("Not found");
+    error.status = 404;
+    next(error);
+  });
+  
+  app.use((error, req, res, next) => {
+    res.status(error.status || 500);
+    res.json({
+      error: {
+        message: error.message
+      }
+    });
+  });
+
+
+// app.use('*', (req, res) => {
+//     res.send(path.join(__dirname, '/dist/SydneyHappening/index.html'));
+// });
+
+module.exports= app;

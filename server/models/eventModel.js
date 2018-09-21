@@ -7,11 +7,11 @@ const eventSchema = mongoose.Schema({
         require: true
     },
     EventName: {
-        type: string,
+        type: String,
         require: true
     },
     EventVenue: {
-        type: string,
+        type: String,
         require: true
     },
     EventDate: {
