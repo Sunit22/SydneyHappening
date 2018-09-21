@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
     //Retreives events from the API
     this.eventService.getAllEvents().subscribe(events => {     
       this.eventList = events;
-      console.log(this.eventList);
+      console.log(events);
     });
   }
 

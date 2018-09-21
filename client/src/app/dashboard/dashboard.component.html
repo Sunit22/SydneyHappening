@@ -6,7 +6,7 @@
           <!--<img class="imageStyle" src="{{event.image}}" alt="{{event.name}}"> -->
           <h4 class="title"><strong>{{event.EventName}}</strong></h4>
           <!--<p>{{event.description}}</p> -->
-          <a href="#" routerLink="/events">More Details</a>  
+          <a href="#" routerLink="/events" (click)="selectedEvent(event.index)">More Details</a>  
         </div>        
   </div>
 </div>
