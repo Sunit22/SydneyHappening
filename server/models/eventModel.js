@@ -21,7 +21,6 @@ const eventSchema = mongoose.Schema({
     AvailableSeats: {
         type: Number,
     }
-
 });
 
 module.exports = mongoose.model('Event', eventSchema);
