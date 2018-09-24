@@ -4,3 +4,7 @@
 .alignHeader{
     text-align:center;
 }
+
+.body{
+    background: #ff0;
+}
