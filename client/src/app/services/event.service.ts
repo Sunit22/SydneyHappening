@@ -10,6 +10,6 @@ export class EventService {
   constructor(private http: Http) { }
 
   getAllEvents() {
-    return this.http.get('/api/events').pipe(map(res => res.json()));    
+    return this.http.get("http://localhost:3000/events/getAllEvents").pipe(map(res => res.json()));    
   }
 }
