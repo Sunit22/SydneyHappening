@@ -11,8 +11,6 @@ const app = express();
 app.use(cors())
 const eventRoutes = require("./routes/events");
 
-
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '/public/')));
@@ -30,30 +28,22 @@ mongoose
  * anything beginning with "/api" will go into this
  */
 
-
-
 app.use("/events", eventRoutes);
 
-// app.use((req, res, next) => {
-//     const error = new Error("Not found");
-//     error.status = 404;
-//     next(error);
-//   });
+app.use((req, res, next) => {
+    const error = new Error("Not found");
+    error.status = 404;
+    next(error);
+  });
   
-  // app.use((error, req, res, next) => {
-  //   res.status(error.status || 500);
-  //   res.json({
-  //     error: {
-  //       message: error.message
-  //     }
-  //   });
-  // });
+  app.use((error, req, res, next) => {
+    res.status(error.status || 500);
+    res.json({
+      error: {
+        message: error.message
+      }
+    });
+  });
 
 
-  const port = process.env.PORT || 3000;
-  
-  const server = http.createServer(app);
-  
-  server.listen(port,  () => console.log(`Server started on port : ${port}`));
-
-//module.exports= app;
+module.exports= app;

@@ -32,7 +32,7 @@ import { FooterComponent } from './footer/footer.component';
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'events', component: EventsComponent },
+      { path: 'events', component: EventsComponent, data: {title: 'Event-Details'} },
       { path: 'registration', component: RegistrationComponent }
     ])
   ],
