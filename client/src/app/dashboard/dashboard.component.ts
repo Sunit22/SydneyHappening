@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../services/event.service';
+import { Router, NavigationExtras } from '@angular/router';
 // import { Event } from '../models/Event';
 
 @Component({
@@ -10,15 +11,28 @@ import { EventService } from '../services/event.service';
 export class DashboardComponent implements OnInit {
   
   eventList: Event []; 
+  event : Event;
+  
 
-  constructor(private eventService: EventService) { }
+  constructor(private eventService: EventService, private router: Router) { }
 
   ngOnInit() {
     //Retreives events from the API
-    this.eventService.getAllEvents().subscribe(events => {     
+    this.eventService.getEvents().subscribe(events => {     
       this.eventList = events;
-      console.log(events);
     });
   }
+
+  eventDetails(eventID:string){
+    let navigationExtras: NavigationExtras = {
+            queryParams: {
+                "eventID": eventID
+            }
+        };
+    this.router.navigate(['/events'], navigationExtras);
+  }
+    
+  
+  
 
 }
