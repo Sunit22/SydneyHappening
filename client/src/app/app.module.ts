@@ -13,6 +13,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { EventsComponent } from './events/events.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FooterComponent } from './footer/footer.component';
     RegistrationComponent,
     EventsComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ContactComponent
   ],
 
   imports: [
@@ -33,7 +35,8 @@ import { FooterComponent } from './footer/footer.component';
       { path: '', component: LoginComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'events', component: EventsComponent, data: {title: 'Event-Details'} },
-      { path: 'registration', component: RegistrationComponent }
+      { path: 'registration', component: RegistrationComponent },
+      { path: 'contact', component: ContactComponent }
     ])
   ],
   providers: [EventService, AuthenticationService],

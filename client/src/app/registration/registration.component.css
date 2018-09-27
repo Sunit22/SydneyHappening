@@ -1,6 +1,10 @@
-.registerFormPosition{
-    margin-top:5em;
-}
 .alignHeader{
     text-align:center;
+    margin-top: 2%;
+}
+.registration-form{
+    background: #E8E4E4;
+    margin-top: 10%;
+    margin-bottom: 5%;
+    width: 70%;
 }
