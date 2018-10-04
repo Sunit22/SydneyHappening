@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 
 const Events = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    EventId: {
-        type: Number,
-        require: true
-    },
     EventName: {
         type: String,
         require: true
@@ -15,11 +11,20 @@ const Events = mongoose.Schema({
         require: true
     },
     EventDate: {
-        type: Date,
+        type: String,
+        require: true
+    },
+    EventTime:{
+        type: String,
         require: true
     },
     AvailableSeats: {
         type: Number,
+        require: true
+    },
+    CreatedBy: {
+        type: String,
+        require: true
     }
 });
 

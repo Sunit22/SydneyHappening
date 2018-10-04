@@ -5,4 +5,5 @@ export class Event{
     date: string;
     time: string;
     seats: number;
+    createdBy: string;
 }

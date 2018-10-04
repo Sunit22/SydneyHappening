@@ -1,0 +1,68 @@
+<div class="container eventFormPosition">
+  <form class="form-horizontal" role="form" #eventData = "ngForm" (ngSubmit)= "addEvent(eventData)">
+      <div class="row">
+          <div class="col-md-3"></div>
+          <div class="col-md-6">
+              <h3 class="alignHeader">Add New Event</h3>
+              <hr>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-3"></div>
+          <div class="col-md-6">
+              <div class="form-group">
+                  <label class="col-form-label" for="eventName">Event Name</label>
+                  <input type="text" name="eventName" class="form-control" id="eventName" #name="ngModel" ngModel required autofocus>
+              </div>
+          </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="col-form-label" for="eventVenue">Event Venue</label>
+                <input type="text" name="eventVenue" class="form-control" id="eventVenue" #venue="ngModel" ngModel required>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+          <div class="form-group">
+              <label class="col-form-label" for="eventDate">Event Date</label>
+              <span [owlDateTimeTrigger]="dt1"><input [owlDateTime]="dt1" name="eventDate" class="form-control" #date="ngModel" ngModel required></span>              
+              <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>              
+          </div>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="col-form-label" for="eventTime">Event Time</label>
+            <span [owlDateTimeTrigger]="dt2"><input [owlDateTime]="dt2" name="eventTime" class="form-control" #time="ngModel" ngModel required></span>              
+            <owl-date-time [pickerType]="'timer'" #dt2></owl-date-time>              
+        </div>
+    </div>
+</div>
+
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="col-form-label" for="availableSeats">Seats</label>
+            <input type="number" name="availableSeats" class="form-control" min="1" id="availableSeats" #seats="ngModel" ngModel required>
+        </div>
+    </div>
+</div>     
+      <div class="row" style="padding-top: 1rem">
+          <div class="col-md-3"></div>
+          <div class="col-md-6">
+              <button type="submit" class="btn btn-lg btn-block btn-success" [disabled]="eventData.invalid"><i class="fa fa-sign-in"></i> Add Event</button>
+          </div>
+      </div>
+  </form>
+</div>

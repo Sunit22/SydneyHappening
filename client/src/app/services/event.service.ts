@@ -29,6 +29,12 @@ export class EventService {
       map(this.extractData),
       catchError(this.handleError));
   }
+  addEvent(data): Observable<any> {
+    return this.http.post(this.apiUrl, data)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
   
   private extractData(res: Response) {
     let body = res.json();
