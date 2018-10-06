@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginData } from '../models/loginData';
-import { AuthenticationService } from '../services/authentication.service'
-import {NgForm} from '@angular/forms';
+import { AuthenticationService } from '../services/authentication.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -11,19 +11,19 @@ import {NgForm} from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   loginData: LoginData = {
-    username: 'username',
+    email: 'email',
     password: 'password'
   };  
+  
   constructor(private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
   }
 
   validateLogin(loginData: NgForm) {
-    this.loginData.username = loginData.value.username;
+    this.loginData.email = loginData.value.email;
     this.loginData.password = loginData.value.password;
-    this.authenticationService.validateLogin(this.loginData);
-    
+    this.authenticationService.validateLogin(this.loginData).subscribe(data => {});  
   }
 
 }

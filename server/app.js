@@ -10,6 +10,7 @@ const app = express();
 
 app.use(cors())
 const eventRoutes = require("./routes/events");
+const userRoutes = require("./routes/users");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -27,8 +28,9 @@ mongoose
  * initialize routes here
  * anything beginning with "/api" will go into this
  */
-
+app.use("/users", userRoutes);
 app.use("/events", eventRoutes);
+
 
 app.use((req, res, next) => {
     const error = new Error("Not found");

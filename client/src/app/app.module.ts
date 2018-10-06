@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { EventService } from './services/event.service';
 import { AuthenticationService } from './services//authentication.service';
+import { RegisterationService } from './services/registeration.service';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -48,7 +49,7 @@ import { EventCreateComponent } from './event-create/event-create.component';
       { path: 'eventCreate', component: EventCreateComponent }
     ])
   ],
-  providers: [EventService, AuthenticationService],
+  providers: [EventService, AuthenticationService, RegisterationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
