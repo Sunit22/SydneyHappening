@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastaModule } from 'ngx-toasta';
 
 import { EventService } from './services/event.service';
 import { AuthenticationService } from './services//authentication.service';
@@ -40,6 +41,7 @@ import { EventCreateComponent } from './event-create/event-create.component';
     HttpModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    ToastaModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
       { path: 'dashboard', component: DashboardComponent },

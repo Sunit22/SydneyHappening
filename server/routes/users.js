@@ -52,7 +52,7 @@ router.post('/login', (req,res) => {
         }
         else {
             console.log('found');
-            //return res.status(200).json({msg:message});
+            return res.status(200).json("success");
         } 
     })
 
