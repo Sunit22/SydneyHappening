@@ -5,7 +5,13 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { catchError, tap, map } from 'rxjs/operators';
 import { environment } from "../../environments/environment";
 
-
+interface AuthenticationReponse {
+  loginStatus: boolean;
+  token: string;
+  userID: string,
+  firstName: string;
+  email: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +20,12 @@ export class AuthenticationService {
 
   apiUrl : string;
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
     this.apiUrl = `${environment.domainURL}` + '/users';
    }
 
   validateLogin(validateLogin) {
-    return this.http.post(this.apiUrl +'/login', validateLogin).pipe(
-      map(this.extractData),
-      catchError(this.handleError));    
+    return this.http.post<AuthenticationReponse>(this.apiUrl +'/login', validateLogin);    
   }
 
   private handleError(error: HttpErrorResponse) {

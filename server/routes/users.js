@@ -3,10 +3,12 @@ var router = express.Router();
 var Users = require('../Models/Users.js');
 var mongoose = require('mongoose');
 const bcryptjs = require('bcryptjs');
+var signInKey = require('../signInKeys/signInKey');
+const jwt = require('jsonwebtoken'); 
 
 router.post('/register', (req,res) => {
     console.log(req.body.email + " " + req.body.password);
-    Users.findOne({email:req.body.email})
+    Users.findOne({email: req.body.email})
     .then(user =>{
         if(user) {
             return res.status(400).json({msg:'Email already registered'});
@@ -17,10 +19,10 @@ router.post('/register', (req,res) => {
                     console.log("hashed password = " + hash);
                     const registerUser = new Users({
                         _id: new mongoose.Types.ObjectId(),
-                        FirstName:req.body.firstName,
-                        LastName:req.body.lastName,
-                        email:req.body.email,
-                        password:hash
+                        FirstName: req.body.firstName,
+                        LastName: req.body.lastName,
+                        email: req.body.email,
+                        password: hash
                     });
                     registerUser.save()
                         .then(user => res.json(),{
@@ -38,23 +40,52 @@ router.post('/register', (req,res) => {
 
 router.post('/login', (req,res) => {
     console.log('here');
-    const email = req.body.email;
-    const password = req.body.password;
-    const errMSg = 'email or password invalid';
+    const errorMessage = 'email or password invalid';
     console.log(req.body.email + req.body.password);
 
-    Users.findOne({email: email})
+    Users.findOne({email: req.body.email})
     .then(user =>{
         if(!user) {
             console.log("not found");
-            return res.status(200).json({msg:errMSg});
-            
+            return res.status(200).json({msg:errorMessage});        
         }
         else {
             console.log('found');
-            return res.status(200).json("success");
+            bcryptjs.compare(req.body.password, user.password, function(err, match) {
+                console.log(match);
+                if(match) {
+                    console.log("password matched");
+                    
+                    const payload = {
+                        id: user._id,
+                        firstName: user.FirstName,
+                        email: user.email
+                    } 
+                    console.log(payload);
+
+                    jwt.sign(payload, signInKey.signInKey, {expiresIn: 6000}, (err, token) => {
+                        if(err) {
+                            res.sendStatus(500);
+                        }
+                        else {
+                            res.json({
+                               loginStatus: true,
+                               token: token,
+                               userID: user._id,
+                               firstName: user.FirstName,
+                               email: user.email
+                            })
+                        }
+                    })
+
+                }
+                else {
+                    console.log("password not matched");
+                    return res.status(200).json({msg:errorMessage});
+                }
+            });
         } 
-    })
+    })  
 
 });
 
