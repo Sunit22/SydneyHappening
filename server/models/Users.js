@@ -18,6 +18,9 @@ const Users = mongoose.Schema({
     password: {
         type: String,
         require: true
+    },
+    IsAdmin: {
+        type: Boolean,
     }
 });
 

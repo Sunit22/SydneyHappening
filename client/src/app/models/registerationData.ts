@@ -4,4 +4,5 @@ export class RegisterationData {
     email: string;
     password: string;
     confirmPassword: string;
+    isAdmin: boolean;
 }

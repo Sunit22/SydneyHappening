@@ -31,11 +31,18 @@ router.post('/', function(req, res, next) {
     CreatedBy : req.body.CreatedBy
   });
   newEvent.save().then(result => {
-    if (result !== null) {
-      res.status(200).json({
-        message: "created a event sucessfully.",
-      });
-    }
+    if (err) return next(err);
+    res.status(200).json("success");    
+  });
+});
+
+
+//Delete Event for admin module
+router.delete('/:_id', function(req, res, next) {
+  console.log("reached API");
+  Events.findOneAndRemove(req.params.eventID, req.body, function (err, event) {
+    if (err) return next(err);
+    res.json("success");
   });
 });
 

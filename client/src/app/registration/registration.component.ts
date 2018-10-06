@@ -16,18 +16,19 @@ export class RegistrationComponent {
     lastName: 'lastName',
     email: 'email',
     password: 'password',
-    confirmPassword: 'confirmPassword'
+    confirmPassword: 'confirmPassword',
+    isAdmin: false
   };
 
   constructor(private registerationService: RegisterationService) { }
-  //constructor(private authenticationService: AuthenticationService) { }
-
+  
   validateAndRegister(registerationData: NgForm) {
     this.registerationData.firstName = registerationData.value.firstName;
     this.registerationData.lastName = registerationData.value.lastName;
     this.registerationData.email = registerationData.value.email;
     this.registerationData.password = registerationData.value.password;
     this.registerationData.confirmPassword = registerationData.value.confirmPassword;
+    this.registerationData.isAdmin = false
 
     if(registerationData.value.password != registerationData.value.confirmPassword) {
       alert("password dont match");

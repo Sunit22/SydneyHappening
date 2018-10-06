@@ -19,21 +19,27 @@ export class EventService {
   }
 
   getEvents(): Observable<any> {
-    return this.http.get(this.apiUrl).pipe(
-      map(this.extractData),
+    return this.http.get(this.apiUrl)
+    .pipe(map(this.extractData),
       catchError(this.handleError));
   } 
   
   getEvent(eventID: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${eventID}`).pipe(
-      map(this.extractData),
+    return this.http.get(`${this.apiUrl}/${eventID}`)
+    .pipe(map(this.extractData),
       catchError(this.handleError));
   }
   addEvent(data): Observable<any> {
     return this.http.post(this.apiUrl, data)
-      .pipe(
+      .pipe( map(this.extractData),
         catchError(this.handleError)
       );
+  }
+
+  deleteEvent(eventID: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${eventID}`)
+    .pipe(map(this.extractData),
+      catchError(this.handleError));
   }
   
   private extractData(res: Response) {

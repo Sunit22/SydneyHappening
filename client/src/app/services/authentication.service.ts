@@ -11,6 +11,7 @@ interface AuthenticationReponse {
   userID: string,
   firstName: string;
   email: string;
+  IsAdmin: boolean;
 }
 
 @Injectable({
