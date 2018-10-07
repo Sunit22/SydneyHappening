@@ -41,11 +41,21 @@ export class DashboardComponent implements OnInit {
         };
     this.router.navigate(['/events'], navigationExtras);
   }
+
+  //Update Event by Event ID
+  updateEvent(eventID:string){    
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+          "eventID": eventID
+      }
+  };
+    this.router.navigate(['/eventEdit'], navigationExtras);
+  }
   
 //Deletes Event by ID
-  deleteEvent(eventID:string){
-    console.log("function called");
-    this.eventService.deleteEvent(eventID).subscribe(data=>{
+  deleteEvent(_id:string){
+    console.log(_id);
+    this.eventService.deleteEvent(_id).subscribe(data=>{
       console.log(data);
       let message = data;
       if(message=='success')

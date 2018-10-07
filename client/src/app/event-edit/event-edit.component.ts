@@ -1,23 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../services/event.service';
-import { Router, NavigationExtras } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from '../services/toastr.service';
 
 @Component({
-  selector: 'app-event-create',
-  templateUrl: './event-create.component.html',
-  styleUrls: ['./event-create.component.css']
+  selector: 'app-event-edit',
+  templateUrl: './event-edit.component.html',
+  styleUrls: ['./event-edit.component.css']
 })
-export class EventCreateComponent implements OnInit {
+export class EventEditComponent implements OnInit {
 
-  constructor(private eventService : EventService,private router: Router) { }
+  eventID: string;
+  event:Event;
+
+  constructor(private eventService : EventService, private router : ActivatedRoute, private showMessage:ToastrService) { }
 
   ngOnInit() {
+    this.getEvent(this.router.queryParams.subscribe(params => {this.eventID = params['eventID']}));
   }
 
-  addEvent(eventData) {
-   
+  getEvent(eventID){
+    this.eventService.getEvent(this.eventID).subscribe(event=> {
+      this.event = event;
+    })
+  }
+
+  updateEvent(eventID, eventData){
     var eventInfo = {
+      _id: eventID,
       EventName: eventData.value.eventName,
       EventVenue: eventData.value.eventVenue,
       EventDate: this.getFormattedDate(eventData.value.eventDate),
@@ -25,18 +35,11 @@ export class EventCreateComponent implements OnInit {
       AvailableSeats: eventData.value.availableSeats,
       CreatedBy: localStorage.getItem('email')
     };
-
-    this.eventService.addEvent(eventInfo).subscribe(event => {
-      console.log(event);
-      this.getAllEvents();
+    this.eventService.updateEvent(eventID,eventInfo).subscribe(event=>{
+      if(event == 'success'){
+        this.showMessage.showSuccess("Event updated successfully")
+      }
     });
-   
-  }
-
-  getAllEvents(){
-    this.eventService.getEvents().subscribe(events => {
-      this.router.navigate(['/dashboard']);
-    })
   }
 
   getFormattedDate(date){
@@ -53,6 +56,5 @@ export class EventCreateComponent implements OnInit {
     var seconds = time.getSeconds();
     return hours + ":" + mins;  
   }
-    
 
 }

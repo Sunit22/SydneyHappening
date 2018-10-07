@@ -23,7 +23,8 @@ router.post('/register', (req,res) => {
                         FirstName: req.body.firstName,
                         LastName: req.body.lastName,
                         email: req.body.email,
-                        password: hash
+                        password: hash,
+                        IsAdmin: req.body.IsAdmin,
                     });
                     
                     let promise = registerUser.save();
@@ -63,7 +64,8 @@ router.post('/login', (req,res,next) => {
                         token: token,
                         userID: user._id,
                         firstName: user.FirstName,
-                        email: user.email
+                        email: user.email,
+                        IsAdmin: user.IsAdmin
                     });
                 }
                 else {

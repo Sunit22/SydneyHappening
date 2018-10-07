@@ -55,6 +55,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('userID', response.userID);
         localStorage.setItem('firstName', response.firstName);
         localStorage.setItem('email', response.email);
+        localStorage.setItem('IsAdmin', response.IsAdmin.toString());
         this.showMessage.showSuccess("You have successfully logged in");
         this.router.navigate(['/dashboard']);
 

@@ -2,12 +2,14 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Events = require('../Models/Events.js');
+var signInKey = require('../signInKeys/signInKey');
+const jwt = require('jsonwebtoken'); 
 
 /* GET ALL Events */
 router.get('/', verifyToken, function(req, res, next) {  
     Events.find(function (err, events) {
-    if (err) return next(err);
-    res.json(events);
+    if (err) return next(err);    
+    res.status(200).json(events);
   });
 });
 
@@ -15,7 +17,7 @@ router.get('/', verifyToken, function(req, res, next) {
 router.get('/:_id', verifyToken, function(req, res, next) {
   Events.findById(req.params._id, function (err, event) {
     if (err) return next(err);
-    res.json(event);
+    res.status(200).json(event);
   });
 });
 
@@ -30,26 +32,44 @@ router.post('/', verifyToken, function(req, res, next) {
     AvailableSeats : req.body.AvailableSeats,
     CreatedBy : req.body.CreatedBy
   });
-  newEvent.save().then(result => {
-    if (err) return next(err);
-    res.status(200).json("success");    
-  });
+  newEvent.save(function(err, event){
+    if(err) return next(err);
+    res.status(200).json("success");
+  })
 });
 
 
 //Delete Event for admin module
 router.delete('/:_id', verifyToken, function(req, res, next) {
-  console.log("reached API");
   Events.findOneAndRemove(req.params.eventID, req.body, function (err, event) {
     if (err) return next(err);
-    res.json("success");
+    res.status(200).json("success");
+  });
+});
+
+//Edit Event for admin module
+router.patch('/:_id', verifyToken,function(req, res, next) {
+  console.log("hi")
+  console.log(req.body);
+  const updateEvent = {
+    
+    "EventName" : "" +req.body.EventName+ "",
+    "EventVenue" : ""+req.body.EventVenue+ "",
+    "EventDate" : "" +req.body.EventDate+ "",
+    "EventTime" : "" +req.body.EventTime+ "",
+    "AvailableSeats" : "" +req.body.AvailableSeats+ "",
+    "CreatedBy" : "" +req.body.CreatedBy+ ""
+  };
+
+  Events.findByIdAndUpdate({_id:req.params._id},{$set: updateEvent}, function (err, event) {
+    if (err) return next(err);
+    console.log(event)
+    res.status(200).json("success");
   });
 });
 
 function verifyToken(req, res, next) {
   let token = req.get('token');
-  console.log(token);
-
   jwt.verify(token, signInKey.signInKey, function(err, tokenData) {
     if(err) {
       console.log("payload false")

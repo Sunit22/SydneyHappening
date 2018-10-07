@@ -22,6 +22,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ContactComponent } from './contact/contact.component';
 import { EventCreateComponent } from './event-create/event-create.component';
+import { EventEditComponent } from './event-edit/event-edit.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { EventCreateComponent } from './event-create/event-create.component';
     HeaderComponent,
     FooterComponent,
     ContactComponent,
-    EventCreateComponent
+    EventCreateComponent,
+    EventEditComponent
   ],
 
   imports: [
@@ -66,7 +68,11 @@ import { EventCreateComponent } from './event-create/event-create.component';
       { path: 'eventCreate',
         component: EventCreateComponent,
         canActivate: [AuthGuard] 
-      }
+      },
+      { path: 'eventEdit',
+      component: EventEditComponent,
+      canActivate: [AuthGuard] 
+    }
     ])
   ],
   providers: [EventService, AuthenticationService, RegisterationService, AuthGuard],

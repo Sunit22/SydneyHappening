@@ -20,9 +20,10 @@ export class RegistrationComponent {
       lastName: new FormControl(null, Validators.required),
       email: new FormControl(null, Validators.email),
       password: new FormControl(null, Validators.required),
-      confirmPassword: new FormControl(null, this.passwordValidator)
-
+      confirmPassword: new FormControl(null, this.passwordValidator),
+      IsAdmin: new FormControl(false)
     });
+   
 
     //subscribe to value changes of the password field so that confirm password check happens again. 
     this.registerationForm.controls.password.valueChanges
