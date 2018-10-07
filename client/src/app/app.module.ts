@@ -3,10 +3,11 @@ import { HttpModule } from '@angular/http';
 import { NgModule, } from '@angular/core';
 import { HttpClientModule , HTTP_INTERCEPTORS} from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastaModule } from 'ngx-toasta';
+import { AuthGuard } from './services/auth.guard';
 
 import { EventService } from './services/event.service';
 import { AuthenticationService } from './services//authentication.service';
@@ -39,21 +40,36 @@ import { EventCreateComponent } from './event-create/event-create.component';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     HttpClientModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     ToastaModule,
     RouterModule.forRoot([
-      { path: '', component: LoginComponent },
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'events', component: EventsComponent, data: {title: 'Event-Details'} },
-      { path: 'registration', component: RegistrationComponent },
+      { path: '', 
+        component: LoginComponent 
+      },
+      { path: 'dashboard', 
+        component: DashboardComponent,
+        canActivate: [AuthGuard]
+      },
+      { path: 'events', 
+        component: EventsComponent, 
+        data: {title: 'Event-Details'},
+        canActivate: [AuthGuard] 
+      },
+      { path: 'registration', 
+        component: RegistrationComponent 
+      },
       { path: 'contact', component: ContactComponent },
-      { path: 'eventCreate', component: EventCreateComponent }
+      { path: 'eventCreate',
+        component: EventCreateComponent,
+        canActivate: [AuthGuard] 
+      }
     ])
   ],
-  providers: [EventService, AuthenticationService, RegisterationService],
+  providers: [EventService, AuthenticationService, RegisterationService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

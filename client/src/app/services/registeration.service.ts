@@ -21,16 +21,13 @@ export class RegisterationService {
     console.log(registerationData);
     console.log(this.apiUrl);
       return this.http.post(this.apiUrl, registerationData).pipe(
-      map(msg => {
-        console.log(msg)
-      }));
-
+        map(this.extractData),
+        catchError(this.handleError));;
   }
 
 
   private extractData(res: Response) {
     let body = res.json();
-    alert(body);
     return body || { };
   }
 
