@@ -20,27 +20,37 @@ export class EventService {
 
   getEvents(): Observable<any> {
     const headers = new HttpHeaders().append("token", localStorage.getItem('token'));
-    return this.http.get(this.apiUrl, {headers})
+    return this.http.get(this.apiUrl, {headers});
   } 
   
   getEvent(eventID: string): Observable<any> {
     const headers = new HttpHeaders().append("token", localStorage.getItem('token'));
-    return this.http.get(`${this.apiUrl}/${eventID}`, {headers})
+    return this.http.get(`${this.apiUrl}/${eventID}`, {headers});
   }
   addEvent(data): Observable<any> {
     const headers = new HttpHeaders().append("token", localStorage.getItem('token'));
-    return this.http.post(this.apiUrl, data, {headers})
+    return this.http.post(this.apiUrl, data, {headers});
   }
 
   updateEvent(eventID, event):Observable<any>
   {
     const headers = new HttpHeaders().append("token", localStorage.getItem('token'));
     console.log("leaving service...")
-    return this.http.patch(`${this.apiUrl}/${eventID}`,event, {headers})
+    return this.http.patch(`${this.apiUrl}/${eventID}`,event, {headers});
   }
 
   deleteEvent(eventID: string): Observable<any> {
     const headers = new HttpHeaders().append("token", localStorage.getItem('token'));
-    return this.http.delete(`${this.apiUrl}/${eventID}`, {headers})
+    return this.http.delete(`${this.apiUrl}/${eventID}`, {headers});
+  }
+
+  registerToAttend(userEventRegister) {
+    const headers = new HttpHeaders().append("token", localStorage.getItem('token'));
+    return this.http.post(this.apiUrl + '/registerToAttend', userEventRegister, {headers});
+  }
+
+  getUserEvents(userData) {
+    const headers = new HttpHeaders().append("token", localStorage.getItem('token'));
+    return this.http.post(this.apiUrl + '/getUserEvents', userData, {headers});
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../services/event.service';
 import { Router, NavigationExtras } from '@angular/router';
-
+import { UserData } from '../models/userData';
 import { ToastrService } from '../services/toastr.service';
 import { Event } from '../models/Event';
 
@@ -12,17 +12,25 @@ import { Event } from '../models/Event';
 })
 export class DashboardComponent implements OnInit {
   
+  
   eventList: Event []; 
   IsAdmin:boolean;
 
-  
+  userEventList: Event[];
+  userData: UserData = {
+    userID: '',
+    firstName: ''
+  };
+  user = '';
 
   constructor(private eventService: EventService, private router: Router, private showMessage: ToastrService) {
     this.IsAdmin = localStorage.getItem('IsAdmin').toLowerCase() =='true' ? true : false;    
   }
 
   ngOnInit() {
+   this.user = localStorage.getItem('firstName');
    this.getAllEvents();
+   this.getUserEvents();
   }
 
   getAllEvents(){
@@ -31,6 +39,16 @@ export class DashboardComponent implements OnInit {
       this.eventList = events;
       console.log(this.eventList);
     });
+  }
+
+  //get events registered to by user
+  getUserEvents() {
+    this.userData.firstName = localStorage.getItem('firstName');
+    this.userData.userID = localStorage.getItem('userID');
+    this.eventService.getUserEvents(this.userData).subscribe( events => {
+      console.log(events);
+    })
+
   }
 
 //Gets Event by ID

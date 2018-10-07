@@ -84,6 +84,8 @@ router.post('/login', (req,res,next) => {
 
 });
 
+//used to validate the jwt token, 
+//this would be done to redirect user to dashboard if already logged in through valid token.
 router.get('/validateToken', verifyToken,function(req, res, next) {
     return res.status(200).json("loggedin");
 });

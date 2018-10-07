@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras  } from '@angular/router';
 import { EventService } from '../services/event.service';
+import { Event } from '../models/Event';
+import { UserEventRegister } from '../models/UserEventRegister';
+import { ToastrService } from '../services/toastr.service';
 
 @Component({
   selector: 'app-events',
@@ -10,9 +13,23 @@ import { EventService } from '../services/event.service';
 export class EventsComponent implements OnInit {
   
   eventId: string;
-  event:Event;
+  event: Event = {
+    _id: '',
+    name: '',
+    venue: '',
+    date: '',
+    time: '',
+    seats: 0,
+    createdBy: ''
+  };
 
-  constructor(private route: ActivatedRoute,private eventService: EventService) {}
+  userEvent: UserEventRegister = {
+    userID: '',
+    eventID: ''
+  };
+
+  constructor(private route: ActivatedRoute,private eventService: EventService, private router: Router,
+    private showMessage: ToastrService) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(
@@ -22,4 +39,15 @@ export class EventsComponent implements OnInit {
       this.event = event;
     });    
   }
+
+  registerToAttend() {
+    this.userEvent.userID = localStorage.getItem('userID');
+    this.userEvent.eventID = this.event._id;
+    this.eventService.registerToAttend(this.userEvent).subscribe( response => {
+    this.showMessage.showSuccess("You have successfully registered for the event!");
+    this.router.navigate(['/dashboard']);
+    },
+      err=>{});
+  }
+  
 }

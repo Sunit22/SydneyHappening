@@ -21,7 +21,11 @@ const Users = mongoose.Schema({
     },
     IsAdmin: {
         type: Boolean,
+    },
+    EventsRegistered: {
+
     }
+
 });
 
 module.exports = mongoose.model('Users', Users);

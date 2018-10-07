@@ -16,7 +16,7 @@
             <h3 class="d-inline-block mb-2 text-dark">Available Seats: {{event.AvailableSeats}}</h3>            
           </div>
           <div class="col-md-3 textMargin">
-              <a href="#" class="btn btn-sm btn-success">Attending</a>
+              <a (click) ="registerToAttend()" class="btn btn-sm btn-success">Attending</a>
               <a href="#" class="btn btn-sm btn-primary pull-right" routerLink="/dashboard">Go to Dashboard</a>
           </div>
            <br/>               
