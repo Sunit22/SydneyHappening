@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit {
   
   eventList: Event []; 
   IsAdmin:boolean;
+
   
 
   constructor(private eventService: EventService, private router: Router, private showMessage: ToastrService) {
@@ -51,15 +52,24 @@ export class DashboardComponent implements OnInit {
   };
     this.router.navigate(['/eventEdit'], navigationExtras);
   }
+
+  selectForDeletion(eventID: string)
+  {    
+    localStorage.setItem("eventID",eventID);
+    console.log(localStorage.getItem("eventID"))    
+  }
+
   
 //Deletes Event by ID
-  deleteEvent(_id:string){
+  deleteEvent(){    
+    const _id = localStorage.getItem("eventID");
     console.log(_id);
     this.eventService.deleteEvent(_id).subscribe(data=>{
       console.log(data);
       let message = data;
       if(message=='success')
         {
+          localStorage.removeItem("eventID");
           this.showMessage.showSuccess("Event deleted successfully");
           this.getAllEvents();
         }

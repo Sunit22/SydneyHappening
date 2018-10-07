@@ -41,7 +41,7 @@ router.post('/', verifyToken, function(req, res, next) {
 
 //Delete Event for admin module
 router.delete('/:_id', verifyToken, function(req, res, next) {
-  Events.findOneAndRemove(req.params.eventID, req.body, function (err, event) {
+  Events.findByIdAndRemove({_id: req.params._id},function (err, event) {
     if (err) return next(err);
     res.status(200).json("success");
   });
