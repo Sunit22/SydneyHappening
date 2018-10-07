@@ -7,7 +7,7 @@
     <a class="navbar-brand" href="#">Sydney Happeing</a>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item">
-        <a class="nav-link" *ngIf = "loginStatus" routerLink="/dashboard">Dashboard</a>
+        <a class="nav-link" *ngIf = "checkIfLoggedIn()" routerLink="/dashboard">Dashboard</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/about">About Us</a>
@@ -16,6 +16,7 @@
         <a class="nav-link" routerLink="/contact">Contact Us</a>
       </li>
     </ul>
+    <button class = "Logout" *ngIf = "checkIfLoggedIn()" routerLink="/" (click) = "logout()">Logout</button>
   </div>
 </nav>
   
