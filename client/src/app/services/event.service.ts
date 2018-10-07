@@ -14,31 +14,35 @@ export class EventService {
 
   apiUrl : string;
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
     this.apiUrl = `${environment.domainURL}` + '/events';
   }
 
   getEvents(): Observable<any> {
-    return this.http.get(this.apiUrl)
-    .pipe(map(this.extractData),
+    const headers = new HttpHeaders().append("token", localStorage.getItem('token'));
+    return this.http.get(this.apiUrl, {headers})
+    .pipe(
       catchError(this.handleError));
   } 
   
   getEvent(eventID: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${eventID}`)
-    .pipe(map(this.extractData),
+    const headers = new HttpHeaders().append("token", localStorage.getItem('token'));
+    return this.http.get(`${this.apiUrl}/${eventID}`, {headers})
+    .pipe(
       catchError(this.handleError));
   }
   addEvent(data): Observable<any> {
-    return this.http.post(this.apiUrl, data)
-      .pipe( map(this.extractData),
+    const headers = new HttpHeaders().append("token", localStorage.getItem('token'));
+    return this.http.post(this.apiUrl, data, {headers})
+      .pipe(
         catchError(this.handleError)
       );
   }
 
   deleteEvent(eventID: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${eventID}`)
-    .pipe(map(this.extractData),
+    const headers = new HttpHeaders().append("token", localStorage.getItem('token'));
+    return this.http.delete(`${this.apiUrl}/${eventID}`, {headers})
+    .pipe(
       catchError(this.handleError));
   }
   

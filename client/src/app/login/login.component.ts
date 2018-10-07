@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { AbstractControl, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, NavigationExtras } from '@angular/router';
 import { LoginData } from '../models/loginData';
 import { AuthenticationService } from '../services/authentication.service';
@@ -12,32 +12,60 @@ import { ToastrService } from '../services/toastr.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-  loginData: LoginData = {
-    email: 'email',
-    password: 'password'
-  };  
-  
-  constructor(private authenticationService: AuthenticationService, private showMessage: ToastrService, private router: Router) { }
-
-  ngOnInit() {
+     
+  loginForm: FormGroup;
+  constructor(private authenticationService: AuthenticationService, private showMessage: ToastrService, private router: Router) { 
+    this.loginForm = new FormGroup({
+      email: new FormControl(null, Validators.required),
+      password: new FormControl(null, Validators.required)      
+    });
   }
 
-  validateLogin(loginData: NgForm) {
-    this.loginData.email = loginData.value.email;
-    this.loginData.password = loginData.value.password;
-    this.authenticationService.validateLogin(this.loginData).subscribe(response => {
-      if(response.loginStatus) {
-        alert("here");
+  ngOnInit() {
+    this.checkIfLoggedIn();
+  }
+
+  checkIfLoggedIn() {
+    this.authenticationService.checkIfLoggedIn().subscribe ( response => {
+      this.router.navigate(['/dashboard']);
+    }, 
+    err => {  
+     if(err.status == 400) {
+      //The token though present in local storage has expired or not present. 
+      //clear localStorage here. 
+      localStorage.clear();
+     }
+    });
+  }
+
+  isValid(controlName) {
+    return this.loginForm.get(controlName).invalid && this.loginForm.get(controlName).touched;
+  }
+
+  validateLogin() {
+    console.log(this.loginForm.value);
+    if(this.loginForm.valid) {
+      this.authenticationService.validateLogin(this.loginForm.value).subscribe(response => {
+    
+        console.log(response.userID);
+        console.log(response.token);
+        console.log(response.firstName);
+        
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('userID', response.userID);
+        localStorage.setItem('firstName', response.firstName);
+        localStorage.setItem('email', response.email);
+        this.showMessage.showSuccess("You have successfully logged in");
         this.router.navigate(['/dashboard']);
-        localStorage.setItem('token',response.token);
-        localStorage.setItem('userID',response.userID);
-        localStorage.setItem('firstName',response.firstName);
-        localStorage.setItem('email',response.email);
-        localStorage.setItem('IsAdmin',response.IsAdmin.toString());
-      }}, err => {
-        alert(err);
-    });  
+
+
+  
+      }, err => {
+        console.log(err.error);
+        this.showMessage.showError(err.error);
+      }); 
+    }
+ 
   }
 
 }

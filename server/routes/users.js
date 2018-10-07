@@ -8,10 +8,11 @@ const jwt = require('jsonwebtoken');
 
 router.post('/register', (req,res) => {
     console.log(req.body.email + " " + req.body.password);
+    const errMessage= "EC1"
     Users.findOne({email: req.body.email})
     .then(user =>{
         if(user) {
-            return res.status(400).json({msg:'Email already registered'});
+            return res.status(200).json(errMessage);
         }
         else {
             bcryptjs.genSalt(10, function(err, salt) {
@@ -22,14 +23,17 @@ router.post('/register', (req,res) => {
                         FirstName: req.body.firstName,
                         LastName: req.body.lastName,
                         email: req.body.email,
-                        password: hash,
-                        IsAdmin: req.body.IsAdmin
+                        password: hash
                     });
-                    registerUser.save()
-                        .then(user => res.json(),{
-                            message:"User registered"
-                        })
-                        .catch(err => console.log(err));
+                    
+                    let promise = registerUser.save();
+                    promise.then(function(){
+                        return res.status(200).json("SUCCESS");
+                    })
+                    promise.catch(function(err){
+                        console.log(err);
+                        return res.status(501).json("Error in registering user");
+                    })
                 });
             }); 
 
@@ -39,56 +43,64 @@ router.post('/register', (req,res) => {
 });
 
 
-router.post('/login', (req,res) => {
-    console.log('here');
-    const errorMessage = 'email or password invalid';
-    console.log(req.body.email + req.body.password);
-
-    Users.findOne({email: req.body.email})
-    .then(user =>{
-        if(!user) {
-            console.log("not found");
-            return res.status(200).json({msg:errorMessage});        
-        }
-        else {
-            console.log('found');
+router.post('/login', (req,res,next) => {
+    let promise = Users.findOne({email: req.body.email}).exec();
+    promise.then(function(user) {
+        if(user) {
             bcryptjs.compare(req.body.password, user.password, function(err, match) {
                 console.log(match);
                 if(match) {
-                    console.log("password matched");
-                    
+                    //payload to be added to sign in
                     const payload = {
                         id: user._id,
                         firstName: user.FirstName,
                         email: user.email
-                    } 
-                    console.log(payload);
-
-                    jwt.sign(payload, signInKey.signInKey, {expiresIn: 6000}, (err, token) => {
-                        if(err) {
-                            res.sendStatus(500);
-                        }
-                        else {
-                            res.json({
-                               loginStatus: true,
-                               token: token,
-                               userID: user._id,
-                               firstName: user.FirstName,
-                               email: user.email,
-                               IsAdmin: user.IsAdmin
-                            })
-                        }
-                    })
-
+                    }
+                    //generate jwt token. 
+                    let token = jwt.sign(payload, signInKey.signInKey,{expiresIn: '3h'});
+                    return res.status(200).json({
+                        loginStatus: true,
+                        token: token,
+                        userID: user._id,
+                        firstName: user.FirstName,
+                        email: user.email
+                    });
                 }
                 else {
-                    console.log("password not matched");
-                    return res.status(200).json({msg:errorMessage});
+                    return res.status(501).json("password does not match");
                 }
             });
-        } 
-    })  
+        }
+        else {
+            return res.status(501).json("Email not registered");
+        }
+    });
+
+    promise.catch(function(err) {
+        return res.status(501).json("Error user login"); 
+    });
 
 });
+
+router.get('/validateToken', verifyToken,function(req, res, next) {
+    return res.status(200).json("loggedin");
+});
+
+function verifyToken(req, res, next) {
+    let token = req.get('token');
+    console.log(token);
+  
+    jwt.verify(token, signInKey.signInKey, function(err, tokenData) {
+      if(err) {
+        console.log("payload false")
+        return res.status(400).json("Unauthorized request");
+      }
+      if(tokenData) {
+        console.log("payload true");
+        decodedToken = tokenData;
+        next();
+      }
+    })
+  }
 
 module.exports = router;

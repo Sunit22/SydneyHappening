@@ -29,6 +29,20 @@ export class AuthenticationService {
     return this.http.post<AuthenticationReponse>(this.apiUrl +'/login', validateLogin);    
   }
 
+  isLoggedIn() {
+    if(localStorage.getItem('token') === null) {
+      return false;
+    }
+    else
+      return true;
+  }
+
+    //verify if the token has expired or not. 
+  checkIfLoggedIn() {
+    const headers = new HttpHeaders().append("token", localStorage.getItem('token'));
+    return this.http.get(this.apiUrl + '/validateToken', {headers});
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // Client Side or Network error
