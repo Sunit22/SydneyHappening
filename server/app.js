@@ -11,6 +11,7 @@ const app = express();
 app.use(cors())
 const eventRoutes = require("./routes/events");
 const userRoutes = require("./routes/users");
+const emailRoutes = require("./routes/emails")
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -30,6 +31,7 @@ mongoose
  */
 app.use("/users", userRoutes);
 app.use("/events", eventRoutes);
+app.use("/emails", emailRoutes);
 
 
 app.use((req, res, next) => {

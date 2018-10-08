@@ -5,6 +5,7 @@ import { Router, NavigationExtras } from '@angular/router';
 import { RegisterationService } from '../services/registeration.service';
 import { ToastrService } from '../services/toastr.service';
 
+
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -24,7 +25,6 @@ export class RegistrationComponent {
       IsAdmin: new FormControl(false)
     });
    
-
     //subscribe to value changes of the password field so that confirm password check happens again. 
     this.registerationForm.controls.password.valueChanges
     .subscribe(
@@ -47,6 +47,9 @@ export class RegistrationComponent {
           this.showMessage.showSuccess("User registered, please login")
           this.router.navigate(['']);
         }
+      },
+      error => {
+        this.showMessage.showError("Error registering user, please try again");
       });
     }
 

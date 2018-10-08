@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Events = require('../Models/Events.js');
+var Users = require('../Models/Users');
 var signInKey = require('../signInKeys/signInKey');
 const jwt = require('jsonwebtoken'); 
 

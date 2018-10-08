@@ -12,6 +12,7 @@ import { AuthGuard } from './services/auth.guard';
 import { EventService } from './services/event.service';
 import { AuthenticationService } from './services//authentication.service';
 import { RegisterationService } from './services/registeration.service';
+import { EmailService } from './services/email.service';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -75,7 +76,7 @@ import { EventEditComponent } from './event-edit/event-edit.component';
     }
     ])
   ],
-  providers: [EventService, AuthenticationService, RegisterationService, AuthGuard],
+  providers: [EventService, AuthenticationService, RegisterationService, EmailService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
