@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../services/event.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { ToastrService } from '../services/toastr.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class EventEditComponent implements OnInit {
   eventID: string;
   event:Event;
 
-  constructor(private eventService : EventService, private router : ActivatedRoute, private showMessage:ToastrService) { }
+  constructor(private eventService : EventService, private router : ActivatedRoute, private showMessage:ToastrService,private route:Router) { }
 
   ngOnInit() {
     this.getEvent(this.router.queryParams.subscribe(params => {this.eventID = params['eventID']}));
@@ -38,6 +38,7 @@ export class EventEditComponent implements OnInit {
     this.eventService.updateEvent(eventID,eventInfo).subscribe(event=>{
       if(event == 'success'){
         this.showMessage.showSuccess("Event updated successfully")
+        this.route.navigate(["/dashboard"]);
       }
     });
   }
