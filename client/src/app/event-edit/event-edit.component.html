@@ -64,7 +64,7 @@
       <div class="col-md-6">
           <div class="form-group">
               <label class="col-form-label" for="eventTime">Event Time</label>
-              <span [owlDateTimeTrigger]="dt2"><input [owlDateTime]="dt2"  maxlength="6" name="eventTime" [(ngModel)]="event.EventTime" class="form-control" #time="ngModel" ngModel required></span>              
+              <span [owlDateTimeTrigger]="dt2"><input [owlDateTime]="dt2" maxlength="6" name="eventTime" [(ngModel)]="event.EventTime" class="form-control" #time="ngModel" ngModel required></span>              
               <owl-date-time [pickerType]="'timer'" #dt2></owl-date-time>              
           </div>
       </div>
