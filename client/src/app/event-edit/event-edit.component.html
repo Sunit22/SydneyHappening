@@ -12,7 +12,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="col-form-label" for="eventName">Event Name</label>
-                    <input type="text" name="eventName" class="form-control" id="eventName" [(ngModel)]="event.EventName" #name="ngModel" ngModel required autofocus>
+                    <input type="text" name="eventName" class="form-control" maxlength="20" id="eventName" [(ngModel)]="event.EventName" #name="ngModel" ngModel required autofocus>
                 </div>
             </div>
             <div class="col-md-3">
@@ -29,7 +29,7 @@
           <div class="col-md-6">
               <div class="form-group">
                   <label class="col-form-label" for="eventVenue">Event Venue</label>
-                  <input type="text" name="eventVenue" class="form-control" id="eventVenue" [(ngModel)]="event.EventVenue" #venue="ngModel" ngModel required>
+                  <input type="text" name="eventVenue" class="form-control" maxlength="50" id="eventVenue" [(ngModel)]="event.EventVenue" #venue="ngModel" ngModel required>
               </div>
           </div>
           <div class="col-md-3">
@@ -46,7 +46,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label class="col-form-label" for="eventDate">Event Date</label>
-                <span [owlDateTimeTrigger]="dt1"><input [owlDateTime]="dt1" name="eventDate" [(ngModel)]="event.EventDate" class="form-control" #date="ngModel" ngModel required></span>              
+                <span [owlDateTimeTrigger]="dt1"><input [owlDateTime]="dt1" maxlength="10" name="eventDate" [(ngModel)]="event.EventDate" class="form-control" #date="ngModel" ngModel required></span>              
                 <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>              
             </div>
         </div>
@@ -64,7 +64,7 @@
       <div class="col-md-6">
           <div class="form-group">
               <label class="col-form-label" for="eventTime">Event Time</label>
-              <span [owlDateTimeTrigger]="dt2"><input [owlDateTime]="dt2" name="eventTime" [(ngModel)]="event.EventTime" class="form-control" #time="ngModel" ngModel required></span>              
+              <span [owlDateTimeTrigger]="dt2"><input [owlDateTime]="dt2" maxlength="6" name="eventTime" [(ngModel)]="event.EventTime" class="form-control" #time="ngModel" ngModel required></span>              
               <owl-date-time [pickerType]="'timer'" #dt2></owl-date-time>              
           </div>
       </div>
@@ -82,7 +82,7 @@
       <div class="col-md-6">
           <div class="form-group">
               <label class="col-form-label" for="availableSeats">Seats</label>
-              <input type="number" name="availableSeats" class="form-control" min="1" id="availableSeats" [(ngModel)]="event.AvailableSeats" #seats="ngModel" ngModel required>
+              <input type="number" name="availableSeats" class="form-control" min="1" id="availableSeats" max="1000" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" id="availableSeats" [(ngModel)]="event.AvailableSeats" #seats="ngModel" ngModel required>
           </div>
       </div>
       <div class="col-md-3">

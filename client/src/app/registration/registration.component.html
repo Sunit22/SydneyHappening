@@ -13,9 +13,9 @@
             <div class="col-md-6">
                 <div class="form-group has-danger">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
                         <input type="text" name="firstName" class="form-control" id="firstName" 
-                              placeholder="First Name" formControlName = "firstName" autofocus>
+                              placeholder="First Name" formControlName = "firstName" maxlength="30" autofocus>
                     </div>
                 </div>
             </div>
@@ -32,9 +32,9 @@
             <div class="col-md-6">
                 <div class="form-group has-danger">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
                         <input type="text" name="lastName" class="form-control" id="lastName" formControlName = "lastName"
-                              placeholder="Last Name" autofocus>
+                              placeholder="Last Name" maxlength="30">
                     </div>
                 </div>
             </div>
@@ -54,14 +54,14 @@
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
                         <input type="text" name="email" class="form-control" id="email" formControlName = "email"
-                              placeholder="you@example.com"  autofocus>
+                              placeholder="you@example.com" required  maxlength="30">
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-control-feedback">
                     <span *ngIf = "isValid('email')" class="text-danger align-middle">
-                        <i class="fa fa-close"></i> Email is invalid. 
+                        <i class="fa fa-close"></i> Email is required. 
                     </span>
                 </div>
             </div>
@@ -74,7 +74,7 @@
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
                         <input type="password" name="password" class="form-control" id="password" formControlName = "password"
-                              placeholder="Password">
+                              placeholder="Password" maxlength="30">
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@
                   <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                       <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
                       <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" 
-                      formControlName = "confirmPassword" placeholder="Confirm Password" >
+                      formControlName = "confirmPassword" placeholder="Confirm Password"maxlength="30" >
                   </div>
               </div>
           </div>

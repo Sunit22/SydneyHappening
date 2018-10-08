@@ -16,7 +16,7 @@ export class ContactComponent implements OnInit {
       this.sendMessage = new FormGroup({
       name: new FormControl(null, Validators.required),
       email: new FormControl(null, Validators.email),
-      phone: new FormControl(null),
+      phone: new FormControl(null,Validators.required),
       message: new FormControl(null, Validators.required)
     });
   }
