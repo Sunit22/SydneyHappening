@@ -12,11 +12,13 @@ export class EventCreateComponent implements OnInit {
 
   constructor(private eventService : EventService,private router: Router,private showMessage:ToastrService) { }
 
+  isBusy:boolean= false;
+
   ngOnInit() {
   }
 
   addEvent(eventData) {
-   
+   this.isBusy=true;
     var eventInfo = {
       EventName: eventData.value.eventName,
       EventVenue: eventData.value.eventVenue,
@@ -34,7 +36,7 @@ export class EventCreateComponent implements OnInit {
       else {
         this.showMessage.showError("Failed to save your event");
       }
-      
+      this.isBusy=false;
     });
    
   }

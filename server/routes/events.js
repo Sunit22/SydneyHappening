@@ -117,8 +117,8 @@ router.post('/getUserEvents',verifyToken,function(req, res, nex) {
     if(err) {
       return res.status(500).json("There was error fetching user events");
     }
-    if(userEvents) {
-      return res.status(200).json(userEvents);
+    if(userEvents) {      
+      return res.status(200).json(userEvents.EventsRegistered);
     }
   })
 });

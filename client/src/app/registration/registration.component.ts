@@ -14,6 +14,7 @@ import { ToastrService } from '../services/toastr.service';
 export class RegistrationComponent {
 
   registerationForm: FormGroup;
+  isBusy:boolean = false;
 
   constructor(private registerationService: RegisterationService, private showMessage: ToastrService, private router: Router) {
     this.registerationForm = new FormGroup({
@@ -38,6 +39,7 @@ export class RegistrationComponent {
   }
   validateAndRegister() {
     console.log(this.registerationForm.value);
+    this.isBusy =true;
     const captcha ="";
     if(this.registerationForm.valid) {
       this.registerationService.registerUser(this.registerationForm.value,captcha).subscribe(data =>{
@@ -48,6 +50,7 @@ export class RegistrationComponent {
           this.showMessage.showSuccess("User registered, please login")
           this.router.navigate(['']);
         }
+        this.isBusy=false;
       },
       error => {
         this.showMessage.showError("Error registering user, please try again");

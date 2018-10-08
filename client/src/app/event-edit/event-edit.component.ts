@@ -15,6 +15,8 @@ export class EventEditComponent implements OnInit {
 
   constructor(private eventService : EventService, private router : ActivatedRoute, private showMessage:ToastrService,private route:Router) { }
 
+  isBusy:boolean= false;
+
   ngOnInit() {
     this.getEvent(this.router.queryParams.subscribe(params => {this.eventID = params['eventID']}));
   }
@@ -26,6 +28,7 @@ export class EventEditComponent implements OnInit {
   }
 
   updateEvent(eventID, eventData){
+    this.isBusy = true;
     var eventInfo = {
       _id: eventID,
       EventName: eventData.value.eventName,
@@ -40,6 +43,7 @@ export class EventEditComponent implements OnInit {
         this.showMessage.showSuccess("Event updated successfully")
         this.route.navigate(["/dashboard"]);
       }
+      this.isBusy = false;
     });
   }
 

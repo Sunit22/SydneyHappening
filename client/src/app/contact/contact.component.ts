@@ -11,6 +11,7 @@ import { ToastrService } from '../services/toastr.service';
 export class ContactComponent implements OnInit {
 
   sendMessage: FormGroup;
+  isBusy:boolean=false;
 
   constructor(private emailService: EmailService,  private showMessage: ToastrService) { 
       this.sendMessage = new FormGroup({
@@ -29,6 +30,7 @@ export class ContactComponent implements OnInit {
   }
 
   sendEmail(){
+    this.isBusy = true;
     if(this.sendMessage.valid) {
       this.emailService.sendEmail(this.sendMessage.value).subscribe( response => {
         this.showMessage.showSuccess("Your message has been sent to the admins.");
@@ -36,6 +38,7 @@ export class ContactComponent implements OnInit {
       err => {
         this.showMessage.showError("An error occured, please send messag again");
       })
+      this.isBusy=false;
     }
   
   }

@@ -39,7 +39,7 @@
                   <div class="row" style="padding-top: 1rem">
                       <div class="col-md-3"></div>
                       <div class="col-md-6">
-                          <button type="submit" class="btn btn-lg btn-block btn-success" [disabled]="loginForm.invalid"><i class="fa fa-sign-in"></i> Login</button>
+                          <button type="submit" class="btn btn-lg btn-block btn-success" [disabled]="loginForm.invalid || isBusy"><i class="fa fa-sign-in"></i> Login</button>
                           <span class="pull-right"> Don't have an account? <a class="btn btn-link" routerLink="/registration">Signup</a></span>
                       </div>
                   </div>

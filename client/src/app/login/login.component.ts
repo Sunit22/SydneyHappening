@@ -14,6 +14,7 @@ import { ToastrService } from '../services/toastr.service';
 export class LoginComponent implements OnInit {
      
   loginForm: FormGroup;
+  isBusy: boolean = false;
   constructor(private authenticationService: AuthenticationService, private showMessage: ToastrService, private router: Router) { 
     this.loginForm = new FormGroup({
       email: new FormControl(null, Validators.email),
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
   }
 
   checkIfLoggedIn() {
+    
     this.authenticationService.checkIfLoggedIn().subscribe ( response => {
       this.router.navigate(['/dashboard']);
     }, 
@@ -44,6 +46,7 @@ export class LoginComponent implements OnInit {
 
   validateLogin() {
     console.log(this.loginForm.value);
+    this.isBusy = true;
     if(this.loginForm.valid) {
       this.authenticationService.validateLogin(this.loginForm.value).subscribe(response => {
     
@@ -57,6 +60,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('email', response.email);
         localStorage.setItem('IsAdmin', response.IsAdmin.toString());
         this.showMessage.showSuccess("You have successfully logged in");
+        this.isBusy = false;
         this.router.navigate(['/dashboard']);
 
 

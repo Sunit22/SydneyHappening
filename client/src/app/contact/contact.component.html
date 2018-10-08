@@ -22,7 +22,7 @@
               </div>
               <p *ngIf = "isValid('phone')" class="text-danger align-middle">Contact number is required</p>
               <div class="form-group">
-                  <input type="submit" (click) = "sendEmail()" name="btnSubmit" [disabled]="sendMessage.invalid" class="btnContact" value="Send Message" />
+                  <input type="submit" (click) = "sendEmail()" name="btnSubmit" [disabled]="sendMessage.invalid || isBusy" class="btnContact" value="Send Message" />
               </div>
           </div>
           <div class="col-md-6">

@@ -96,7 +96,7 @@
         <div class="row" style="padding-top: 1rem">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <button type="submit" class="btn btn-sm btn-warning" [disabled]="eventData.invalid">Update Event</button>
+                <button type="submit" class="btn btn-sm btn-warning" [disabled]="eventData.invalid || isBusy">Update Event</button>
                 <button type="submit" routerLink="/dashboard" class="btn btn-sm btn-secondary pull-right">Cancel</button>
             </div>
         </div>

@@ -15,6 +15,8 @@ export class DashboardComponent implements OnInit {
   
   eventList: Event []; 
   IsAdmin:boolean;
+  registeredList: any;
+  showEvents: boolean= false;
 
   userEventList: Event[];
   userData: UserData = {
@@ -37,7 +39,6 @@ export class DashboardComponent implements OnInit {
     //Retreives events from the API    
     this.eventService.getEvents().subscribe(events => { 
       this.eventList = events;
-      console.log(this.eventList);
     });
   }
 
@@ -46,7 +47,13 @@ export class DashboardComponent implements OnInit {
     this.userData.firstName = localStorage.getItem('firstName');
     this.userData.userID = localStorage.getItem('userID');
     this.eventService.getUserEvents(this.userData).subscribe( events => {
-      console.log(events);
+      if(events){
+        this.registeredList = events;
+        this.showEvents=true;
+      }
+      else{
+        this.showEvents=false;
+      }
     })
 
   }
