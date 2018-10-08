@@ -12,7 +12,6 @@ export class EventEditComponent implements OnInit {
 
   eventID: string;
   event:Event;
-
   constructor(private eventService : EventService, private router : ActivatedRoute, private showMessage:ToastrService,private route:Router) { }
 
   isBusy:boolean= false;
