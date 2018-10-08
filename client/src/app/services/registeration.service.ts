@@ -17,10 +17,15 @@ export class RegisterationService {
     this.apiUrl = `${environment.domainURL}` + '/users/register';
   }
 
-  registerUser(registerationData) {
+  registerUser(registerationData,captcha) {
     console.log(registerationData);
+    const userData={
+      registerationData: registerationData,
+      captcha: captcha
+    }
+    console.log(userData);
     console.log(this.apiUrl);
-      return this.http.post(this.apiUrl, registerationData).pipe(
+      return this.http.post(this.apiUrl, userData).pipe(
         map(this.extractData),
         catchError(this.handleError));;
   }

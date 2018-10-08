@@ -38,8 +38,9 @@ export class RegistrationComponent {
   }
   validateAndRegister() {
     console.log(this.registerationForm.value);
+    const captcha ="";
     if(this.registerationForm.valid) {
-      this.registerationService.registerUser(this.registerationForm.value).subscribe(data =>{
+      this.registerationService.registerUser(this.registerationForm.value,captcha).subscribe(data =>{
         if(data == 'EC1') {
           this.showMessage.showError("This email is already registered.");
         }

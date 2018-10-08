@@ -10,7 +10,7 @@ import { ToastrService } from '../services/toastr.service';
 })
 export class EventCreateComponent implements OnInit {
 
-  constructor(private eventService : EventService,private router: Router) { }
+  constructor(private eventService : EventService,private router: Router,private showMessage:ToastrService) { }
 
   ngOnInit() {
   }
@@ -25,10 +25,16 @@ export class EventCreateComponent implements OnInit {
       AvailableSeats: eventData.value.availableSeats,
       CreatedBy: localStorage.getItem('email')
     };
-
+    console.log(eventData);
     this.eventService.addEvent(eventInfo).subscribe(event => {
-      console.log(event);
-      this.getAllEvents();
+      if(event == "success"){
+        this.getAllEvents();
+        this.showMessage.showSuccess("Event added successfully");
+      }
+      else {
+        this.showMessage.showError("Failed to save your event");
+      }
+      
     });
    
   }
