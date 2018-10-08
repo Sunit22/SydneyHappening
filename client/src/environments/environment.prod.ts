@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
   name: '',
-  domainURL: 'http://localhost:3000'
+  domainURL: 'http://sydneyhappening20.herokuapp.com'
 };
