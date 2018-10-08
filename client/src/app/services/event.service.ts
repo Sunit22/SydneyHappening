@@ -35,7 +35,6 @@ export class EventService {
   updateEvent(eventID, event):Observable<any>
   {
     const headers = new HttpHeaders().append("token", localStorage.getItem('token'));
-    console.log("leaving service...")
     return this.http.patch(`${this.apiUrl}/${eventID}`,event, {headers});
   }
 

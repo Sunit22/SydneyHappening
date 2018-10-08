@@ -27,7 +27,6 @@ export class EventCreateComponent implements OnInit {
       AvailableSeats: eventData.value.availableSeats,
       CreatedBy: localStorage.getItem('email')
     };
-    console.log(eventData);
     this.eventService.addEvent(eventInfo).subscribe(event => {
       if(event == "success"){
         this.getAllEvents();

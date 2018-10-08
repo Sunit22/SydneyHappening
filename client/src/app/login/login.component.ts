@@ -45,15 +45,9 @@ export class LoginComponent implements OnInit {
   }
 
   validateLogin() {
-    console.log(this.loginForm.value);
     this.isBusy = true;
     if(this.loginForm.valid) {
       this.authenticationService.validateLogin(this.loginForm.value).subscribe(response => {
-    
-        console.log(response.userID);
-        console.log(response.token);
-        console.log(response.firstName);
-        
         localStorage.setItem('token', response.token);
         localStorage.setItem('userID', response.userID);
         localStorage.setItem('firstName', response.firstName);
@@ -61,12 +55,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('IsAdmin', response.IsAdmin.toString());
         this.showMessage.showSuccess("You have successfully logged in");
         this.isBusy = false;
-        this.router.navigate(['/dashboard']);
-
-
-  
+        this.router.navigate(['/dashboard']);  
       }, err => {
-        console.log(err.error);
         this.showMessage.showError(err.error);
       }); 
     }

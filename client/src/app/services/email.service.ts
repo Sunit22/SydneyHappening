@@ -17,8 +17,6 @@ export class EmailService {
    }
 
    sendEmail(message) {
-     console.log("sending email");
-    //const headers = new HttpHeaders().append("token", localStorage.getItem('token'));
     return this.http.post(this.apiUrl + '/sendEmail', message);
   }
 }

@@ -24,6 +24,7 @@ import { FooterComponent } from './footer/footer.component';
 import { ContactComponent } from './contact/contact.component';
 import { EventCreateComponent } from './event-create/event-create.component';
 import { EventEditComponent } from './event-edit/event-edit.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { EventEditComponent } from './event-edit/event-edit.component';
     FooterComponent,
     ContactComponent,
     EventCreateComponent,
-    EventEditComponent
+    EventEditComponent,
+    AboutUsComponent
   ],
 
   imports: [
@@ -73,7 +75,10 @@ import { EventEditComponent } from './event-edit/event-edit.component';
       { path: 'eventEdit',
       component: EventEditComponent,
       canActivate: [AuthGuard] 
-    }
+    },
+    { path: 'about', 
+    component: AboutUsComponent 
+  }
     ])
   ],
   providers: [EventService, AuthenticationService, RegisterationService, EmailService, AuthGuard],

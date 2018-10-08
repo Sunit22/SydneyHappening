@@ -38,7 +38,6 @@ export class RegistrationComponent {
     return this.registerationForm.get(controlName).invalid && this.registerationForm.get(controlName).touched;
   }
   validateAndRegister() {
-    console.log(this.registerationForm.value);
     this.isBusy =true;
     const captcha ="";
     if(this.registerationForm.valid) {

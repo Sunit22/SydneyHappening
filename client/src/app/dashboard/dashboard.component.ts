@@ -80,17 +80,14 @@ export class DashboardComponent implements OnInit {
 
   selectForDeletion(eventID: string)
   {    
-    localStorage.setItem("eventID",eventID);
-    console.log(localStorage.getItem("eventID"))    
+    localStorage.setItem("eventID",eventID);    
   }
 
   
 //Deletes Event by ID
   deleteEvent(){    
     const _id = localStorage.getItem("eventID");
-    console.log(_id);
     this.eventService.deleteEvent(_id).subscribe(data=>{
-      console.log(data);
       let message = data;
       if(message=='success')
         {
