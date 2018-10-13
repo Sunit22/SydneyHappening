@@ -11,7 +11,7 @@ const app = express();
 app.use(cors())
 const eventRoutes = require("./routes/events");
 const userRoutes = require("./routes/users");
-const emailRoutes = require("./routes/emails")
+const emailRoutes = require("./AdapterLayer/emailAdapter");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
