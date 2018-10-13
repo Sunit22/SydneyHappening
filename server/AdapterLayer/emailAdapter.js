@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const sendEmailAccess = require('../DaoLayer/sendEmail');
+const sendEmailAccess = require('../DaoLayer/emailDao');
 
 router.post('/sendEmail', function(req, res, next) {
 
@@ -16,6 +16,7 @@ router.post('/sendEmail', function(req, res, next) {
     var emailSubject = "New user message from Sydney Happening";
     sendEmailAccess.sendEmail(emailFrom, emailTo, emailSubject, messageBody, function(err, message) {
         if(err) {
+            console.log(err) //log the error in sending email.
             return res.status(500).json("Error in sending message to admins");
         }
     });
