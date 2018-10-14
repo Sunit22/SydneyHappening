@@ -9,26 +9,26 @@ var eventDao = require('../DaoLayer/eventDao')
 
 // this route will be used to fetch all events
 router.get('/getAllEvents', verifyToken, function(req, res, next) {  
-   eventDao.getAllEvents(function(err, events){
-        if (err) {
-            res.status(500).json("Error while fething the events, please try again")
-        }
-        if(events) {
-            res.status(200).json(events);
-        }
-    });    
+  	eventDao.getAllEvents(function(err, events) {
+    	if (err) {
+      		res.status(500).json("Error while fething the events, please try again")
+    	}
+    	if(events) {
+      		res.status(200).json(events);
+    	}
+  	});    
 });
 
 // this route will be used to fetch specific event by EventID
 router.get('/getEvent/:_id', verifyToken, function(req, res, next) {
     eventDao.getEventByEventID(req.params._id ,function(err, event){
         if (err) {
-            res.status(500).json("Error while fething the event, please try again")
+          res.status(500).json("Error while fething the event, please try again")
         }
-        if(event){
-            res.status(200).json(event);
+        if(event) {
+          res.status(200).json(event);
         }
-    })  ;  
+    });  
 });
 
 // this route will be used to Add New Event
@@ -44,46 +44,45 @@ router.post('/addEvent', verifyToken, function(req, res, next) {
     });
     eventDao.addEvent(newEvent, function(err, event){
         if(err) {
-            res.status(500).json("Error while adding the event, please try again")
+          res.status(500).json("Error while adding the event, please try again")
         }
-        if(event){
-            res.status(200).json("Event added successfully");
+        if(event) {
+          res.status(200).json("Event added successfully");
         }
     })
 });
 
 // this route will be used to Delete existing event
 router.delete('/deleteEvent/:_id', verifyToken, function(req, res, next) {
-  eventDao.deleteEvent({_id: req.params._id},function (err, event) {
-    if (err) {
-        res.status(500).json("Error while deleting the event, please try again")
-    }
-    if(event){
-        res.status(200).json("Event deleted successfully");
-    }    
-  });
+  	eventDao.deleteEvent({_id: req.params._id},function (err, event) {
+    	if (err) {
+      		res.status(500).json("Error while deleting the event, please try again")
+    	}
+    	if(event) {
+      		res.status(200).json("Event deleted successfully");
+    	}    
+  	});
 });
 
 // this route will be used to Update existing event
 router.patch('/updateEvent', verifyToken,function(req, res, next) {
-  const eventJson = {
-    
-    "EventName" : "" +req.body.EventName+ "",
-    "EventVenue" : ""+req.body.EventVenue+ "",
-    "EventDate" : "" +req.body.EventDate+ "",
-    "EventTime" : "" +req.body.EventTime+ "",
-    "AvailableSeats" : "" +req.body.AvailableSeats+ "",
-    "CreatedBy" : "" +req.body.CreatedBy+ ""
-  };
-  console.log(eventJson);
-  eventDao.updateEvent({_id: req.body._id} ,eventJson, function (err, event) {
-    if (err){
-        res.status(500).json("Error while updating the event, please try again")
-    }
-    if(event){
-        res.status(200).json("Event updated successfully");
-    }    
-  });
+	//create json to save the updated event
+  	const eventJson = {
+    	"EventName" : "" +req.body.EventName+ "",
+    	"EventVenue" : ""+req.body.EventVenue+ "",
+    	"EventDate" : "" +req.body.EventDate+ "",
+    	"EventTime" : "" +req.body.EventTime+ "",
+    	"AvailableSeats" : "" +req.body.AvailableSeats+ "",
+    	"CreatedBy" : "" +req.body.CreatedBy+ ""
+  	};
+  	eventDao.updateEvent(req.body._id , eventJson, function (err, event) {
+		if (err) {
+			res.status(500).json("Error while updating the event, please try again")
+		}
+		if(event) {
+			res.status(200).json("Event updated successfully");
+		}    
+  	});
 });
 
 

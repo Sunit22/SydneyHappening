@@ -18,7 +18,6 @@ module.exports = {
         });
     },
 
-
     /*
     * use this function to find event by event id
     * the callback function returns event if found
@@ -37,13 +36,12 @@ module.exports = {
           });
     },
 
-
    /*
     * Use this function to add event
     * @newEvent Json with details of event to insert
     */
-    addEvent: function(newEvent, callback){        
-        newEvent.save(function(err, event){
+    addEvent: function(newEvent, callback) {        
+        newEvent.save(function(err, event) {
             if(err) {
                 callback(err, null);
             }
@@ -52,7 +50,6 @@ module.exports = {
             }            
         });
     },
-
 
     /*
     * use this function to delete event by event id
@@ -70,28 +67,25 @@ module.exports = {
         });
     },
 
-
     /*
     * use this function to update event by event id
     * the callback function returns event if found
     * error if db error or empty callback if not found
     */
-    updateEvent: function(id, eventJson, callback){
-        console.log("From DAO");
-        console.log(id);
+    updateEvent: function(id, eventJson, callback) {
         Events.findByIdAndUpdate(id, {$set: eventJson}, function (err, event) {
             if(err) {
                 callback(err, null);
             }
-            if(event){
+            if(event) {
                 callback(null, event);
             }   
         });
     },
 
-
-    decrementAvailableSeats: function(id, callback){
-        Events.findByIdAndUpdate(id, {$inc : {"AvailableSeats": -1}}, function(err,events) {
+    //pass seat update as the number to be updated from adapter so it can be generic
+    decrementAvailableSeats: function(id, seatUpdate, callback) {
+        Events.findByIdAndUpdate(id, {$inc : {"AvailableSeats": seatUpdate}}, function(err,events) {
             if(err) {
                 callback(err, null);
             }

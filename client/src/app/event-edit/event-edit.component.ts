@@ -46,12 +46,11 @@ export class EventEditComponent implements OnInit {
       CreatedBy: localStorage.getItem('email')
     };
     this.eventService.updateEvent(eventID,eventInfo).subscribe(event => {
-      if(event == 'success') {
-        this.showMessage.showSuccess("Event updated successfully");
-        this.route.navigate(["/dashboard"]);
-      }
+      this.showMessage.showSuccess("Event updated successfully");
+      this.route.navigate(["/dashboard"]);
       this.isBusy = false;
     }, err => {
+	  this.isBusy = false;
       this.showMessage.showError(err.error); //show message that update event failed.
     });
   }
