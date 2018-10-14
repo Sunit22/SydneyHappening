@@ -1,5 +1,5 @@
- 
-  <div class="container registration-form" >
+<!-- This html is used to render registration page -->
+<div class="container registration-form">
     <form class="form-horizontal" role="form" [formGroup]="registerationForm" (ngSubmit)= "validateAndRegister()">
         <div class="row">
             <div class="col-md-3"></div>
@@ -15,7 +15,7 @@
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
                         <input type="text" name="firstName" class="form-control" id="firstName" 
-                              placeholder="First Name" formControlName = "firstName" maxlength="30" autofocus>
+                            placeholder="First Name" formControlName = "firstName" maxlength="30" autofocus>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
                         <input type="text" name="lastName" class="form-control" id="lastName" formControlName = "lastName"
-                              placeholder="Last Name" maxlength="30">
+                            placeholder="Last Name" maxlength="30">
                     </div>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
                         <input type="text" name="email" class="form-control" id="email" formControlName = "email"
-                              placeholder="you@example.com" required  maxlength="30">
+                            placeholder="you@example.com" required  maxlength="30">
                     </div>
                 </div>
             </div>
@@ -74,44 +74,43 @@
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
                         <input type="password" name="password" class="form-control" id="password" formControlName = "password"
-                              placeholder="Password" maxlength="30">
+                            placeholder="Password" maxlength="30">
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-control-feedback">
                     <span *ngIf = "isValid('password')" class="text-danger align-middle">   
-                    Password field is mandatory.  
+                        Password field is mandatory.  
                     </span>
                 </div>
             </div>
         </div>
-
         <div class="row">
-          <div class="col-md-3"></div>
-          <div class="col-md-6">
-              <div class="form-group">
-                  <label class="sr-only" for="password">Confirm Password</label>
-                  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                      <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
-                      <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" 
-                      formControlName = "confirmPassword" placeholder="Confirm Password"maxlength="30" >
-                  </div>
-              </div>
-          </div>
-          <div class="col-md-3">
-              <div class="form-control-feedback">
-                  <span *ngIf = "isValid('confirmPassword')"class="text-danger align-middle">
-                  Password and confirm password do not match.     
-                  </span>
-              </div>
-          </div>
-      </div>
-
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="sr-only" for="password">Confirm Password</label>
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
+                        <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" 
+                            formControlName = "confirmPassword" placeholder="Confirm Password"maxlength="30" >
+                        </div>
+                    </div>
+                </div>
+            <div class="col-md-3">
+                <div class="form-control-feedback">
+                    <span *ngIf = "isValid('confirmPassword')"class="text-danger align-middle">
+                        Password and confirm password do not match.     
+                    </span>
+                </div>
+            </div>
+        </div>
         <div class="row" style="padding-top: 1rem">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <button type="submit" class="btn btn-lg btn-block btn-primary" [disabled]="registerationForm.invalid || isBusy"><i class="fa fa-sign-in"></i> Register</button>
+                <button type="submit" class="btn btn-lg btn-block btn-primary" 
+                    [disabled]="registerationForm.invalid || isBusy"><i class="fa fa-sign-in"></i> Register</button>
                 <span class="pull-right"> Already have an account? <a class="btn btn-link" routerLink="/">Sign in</a></span>                
             </div>
         </div>
