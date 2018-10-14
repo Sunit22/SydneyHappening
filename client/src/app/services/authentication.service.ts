@@ -4,16 +4,16 @@ import { environment } from "../../environments/environment";
 
 //This would be used to store the response from server
 interface AuthenticationReponse {
-  loginStatus: boolean;
-  token: string;
-  userID: string,
-  firstName: string;
-  email: string;
-  IsAdmin: boolean;
+	loginStatus: boolean;
+	token: string;
+	userID: string,
+	firstName: string;
+	email: string;
+	IsAdmin: boolean;
 }
 
 @Injectable({
-  providedIn: 'root'
+  	providedIn: 'root'
 })
 export class AuthenticationService {
 

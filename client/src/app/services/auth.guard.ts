@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { AuthenticationService } from './authentication.service';
 
 @Injectable({
-  providedIn: 'root'
+  	providedIn: 'root'
 })
 /**
  * This class is used to prevent unauthorised access to other components.

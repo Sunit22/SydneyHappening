@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ToastaService, ToastOptions } from 'ngx-toasta';
 
 @Injectable({
-  providedIn: 'root'
+  	providedIn: 'root'
 })
 export class ToastrService {
 
