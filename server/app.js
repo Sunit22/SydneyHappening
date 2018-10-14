@@ -9,7 +9,7 @@ const cors = require('cors');
 const app = express();
 
 app.use(cors())
-const eventRoutes = require("./routes/events");
+const eventRoutes = require("./AdapterLayer/eventAdapter");
 const userRoutes = require("./AdapterLayer/userAdapter");
 const emailRoutes = require("./AdapterLayer/emailAdapter");
 
@@ -48,6 +48,10 @@ app.use((req, res, next) => {
       }
     });
   });
+
+//   router.use('*', (req, res) => {
+//     res.send(path.join(__dirname, '/dist/SydneyHappening/index.html'));
+// });
 
 
 module.exports= app;

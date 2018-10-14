@@ -7,7 +7,7 @@ var signInKey = require('../signInKeys/signInKey');
 const jwt = require('jsonwebtoken'); 
 
 /* GET ALL Events */
-router.get('/', verifyToken, function(req, res, next) {  
+router.get('/getAllEvents', verifyToken, function(req, res, next) {  
     Events.find(function (err, events) {
     if (err) return next(err);    
     res.status(200).json(events);
@@ -15,7 +15,7 @@ router.get('/', verifyToken, function(req, res, next) {
 });
 
 //GET select event by id
-router.get('/:_id', verifyToken, function(req, res, next) {
+router.get('/getEvent/:_id', verifyToken, function(req, res, next) {
   Events.findById(req.params._id, function (err, event) {
     if (err) return next(err);
     res.status(200).json(event);
@@ -23,7 +23,7 @@ router.get('/:_id', verifyToken, function(req, res, next) {
 });
 
 //ADD new Event
-router.post('/', verifyToken, function(req, res, next) {
+router.post('/addEvent', verifyToken, function(req, res, next) {
   const newEvent = new Events({
     _id : new mongoose.Types.ObjectId(),
     EventName : req.body.EventName,
@@ -41,7 +41,8 @@ router.post('/', verifyToken, function(req, res, next) {
 
 
 //Delete Event for admin module
-router.delete('/:_id', verifyToken, function(req, res, next) {
+router.delete('/deleteEvent/:_id', verifyToken, function(req, res, next) {
+  console.log(req.params._id)
   Events.findByIdAndRemove({_id: req.params._id},function (err, event) {
     if (err) return next(err);
     res.status(200).json("success");
@@ -49,9 +50,8 @@ router.delete('/:_id', verifyToken, function(req, res, next) {
 });
 
 //Edit Event for admin module
-router.patch('/:_id', verifyToken,function(req, res, next) {
-  console.log("hi")
-  console.log(req.body);
+router.patch('/updateEvent', verifyToken,function(req, res, next) {
+  console.log(req);
   const updateEvent = {
     
     "EventName" : "" +req.body.EventName+ "",
@@ -62,9 +62,8 @@ router.patch('/:_id', verifyToken,function(req, res, next) {
     "CreatedBy" : "" +req.body.CreatedBy+ ""
   };
 
-  Events.findByIdAndUpdate({_id:req.params._id},{$set: updateEvent}, function (err, event) {
+  Events.findByIdAndUpdate(req.body._id,{$set: updateEvent}, function (err, event) {
     if (err) return next(err);
-    console.log(event)
     res.status(200).json("success");
   });
 });

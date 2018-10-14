@@ -22,7 +22,7 @@ export class EventEditComponent implements OnInit {
   }
 
   getEvent(eventID){
-    this.eventService.getEvent(this.eventID).subscribe(event=> {
+    this.eventService.getEvent(this.eventID).subscribe(event=> {      
       this.event = event;
     })
   }
