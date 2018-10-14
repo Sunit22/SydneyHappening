@@ -8,23 +8,15 @@ import { environment } from "../../environments/environment";
 })
 export class RegisterationService {
 
-  apiUrl : string;
+	apiUrl : string; //url of the server to be used 
 
-  constructor(private http: Http) { 
-    this.apiUrl = `${environment.domainURL}` + '/users/register';
-  }
+	constructor(private http: Http) { 
+		this.apiUrl = `${environment.domainURL}` + '/users/register';
+	}
 
-  registerUser(registerationData) {
-    console.log(this.apiUrl);
-    return this.http.post(this.apiUrl, registerationData);
-  }
-
-
-  
-
-
-
-
-
-
+	//server call to register the user
+	registerUser(registerationData) {
+		console.log(this.apiUrl);
+		return this.http.post(this.apiUrl, registerationData);
+	}
 }
