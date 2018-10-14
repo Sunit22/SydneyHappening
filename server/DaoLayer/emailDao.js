@@ -1,7 +1,9 @@
 const nodemailer = require('nodemailer');
 
 module.exports = {
+    //Use this function to send emails. Callback to be used for passing back error.  
     sendEmail: function(emailFrom, emailTo, emailSubject, emailMessage, callback) {
+        
         /*
         * using nodemailer for sending emails.
         * for using gmail, you need OAuth2 authentication.
