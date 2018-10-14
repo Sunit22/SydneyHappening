@@ -9,37 +9,37 @@ var userDao = require('../DaoLayer/userDao');
 
 //this route would be used to register a new user. 
 router.post('/register', function(req, res, next) {   
-    userDao.findUser(req.body.registerationData.email, function(err, user) {
+    userDao.findUser(req.body.email, function(err, user) {
         if(err) {
             //return error with db
-            return res.status(500).json("server error registering user");
+            return res.status(501).json("server error registering user");
         }
         if(user) {
             //email already registered
-            return res.status(500).json("Email already registered.");
+            return res.status(501).json("Email already registered.");
         }  
 
         /*
-        * generate salt and has the password using bcrypt
+        * generate salt and hash the password using bcrypt
         * hashed password would be stored in variable "hash"
         */
         bcrypt.genSalt(10, function(err, salt) {
-            bcrypt.hash(req.body.registerationData.password, salt, function(err, hash) {
+            bcrypt.hash(req.body.password, salt, function(err, hash) {
                 //create a json to register data.
                 const registerUser = new Users({
                     _id: new mongoose.Types.ObjectId(),
-                    FirstName: req.body.registerationData.firstName,
-                    LastName: req.body.registerationData.lastName,
-                    email: req.body.registerationData.email,
+                    FirstName: req.body.firstName,
+                    LastName: req.body.lastName,
+                    email: req.body.email,
                     password: hash,
-                    IsAdmin: req.body.registerationData.IsAdmin,
+                    IsAdmin: req.body.IsAdmin,
                 });
                 userDao.registerUser(registerUser, function(err, user) {
                     if(user) {
                         return res.status(200).json("user registered");
                     }
                     else {
-                        return res.status(500).json("error registering user");
+                        return res.status(501).json("error registering user");
                     }
                 });
             });
@@ -48,7 +48,7 @@ router.post('/register', function(req, res, next) {
 });
 
 //this route would be used for user login
-router.post('/login', function(req,res,next) {
+router.post('/login', function(req, res, next) {
     userDao.findUser(req.body.email, function(err, user) {
         if(err) {
             //return user is not registered
@@ -71,6 +71,7 @@ router.post('/login', function(req,res,next) {
                     /*
                     * generate jwt token to be passed as header in client requests.
                     * This token would be used to verify sign in and access server functions.
+                    * The token would expire in 3 hours.
                     */ 
                     let token = jwt.sign(payload, signInKey.signInKey,{expiresIn: '3h'});
                     //confirm login and send server response. 
@@ -87,6 +88,9 @@ router.post('/login', function(req,res,next) {
                     return res.status(501).json("password does not match");
                 }
             });
+        } 
+        else {
+            res.status(500).json("email not registered");
         }
     });
 });
@@ -115,7 +119,7 @@ function verifyToken(req, res, next) {
             decodedToken = tokenData;
             next();
         }
-    })
+    });
 }
 
 module.exports = router;

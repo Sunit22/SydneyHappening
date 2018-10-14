@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { RegisterationData } from '../models/registerationData';
 import { AbstractControl, FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router } from '@angular/router';
 import { RegisterationService } from '../services/registeration.service';
-import { ToastrService } from '../services/toastr.service';
+import { ToastrService } from '../services/toastr.service'; //used to show error or success messages.
 
 
 @Component({
@@ -13,10 +12,11 @@ import { ToastrService } from '../services/toastr.service';
 })
 export class RegistrationComponent {
 
-  registerationForm: FormGroup;
-  isBusy:boolean = false;
+  registerationForm: FormGroup; //contains the form data for registering a new user.
+  isBusy:boolean = false; //prevent multiple submits of form, once user sends request becomes true until server response.
 
   constructor(private registerationService: RegisterationService, private showMessage: ToastrService, private router: Router) {
+    //set the validation parameters for the form here.
     this.registerationForm = new FormGroup({
       firstName: new FormControl(null, Validators.required),
       lastName: new FormControl(null, Validators.required),
@@ -27,37 +27,32 @@ export class RegistrationComponent {
     });
    
     //subscribe to value changes of the password field so that confirm password check happens again. 
-    this.registerationForm.controls.password.valueChanges
-    .subscribe(
+    this.registerationForm.controls.password.valueChanges.subscribe(
       x => this.registerationForm.controls.confirmPassword.updateValueAndValidity()
     );
+  }
 
-   }
-
-   isValid(controlName) {
+  //this is used to check if the form is valid by passing each field's name from html
+  isValid(controlName) {
     return this.registerationForm.get(controlName).invalid && this.registerationForm.get(controlName).touched;
   }
+
+  //validate the form and register user
   validateAndRegister() {
     this.isBusy =true;
-    const captcha ="";
     if(this.registerationForm.valid) {
-      this.registerationService.registerUser(this.registerationForm.value,captcha).subscribe(data =>{
-        if(data == 'EC1') {
-          this.showMessage.showError("This email is already registered.");
-        }
-        else {
-          this.showMessage.showSuccess("User registered, please login")
-          this.router.navigate(['']);
-        }
+      this.registerationService.registerUser(this.registerationForm.value).subscribe(data => {
+        this.showMessage.showSuccess("User registered, please login")
+        this.router.navigate(['']); //navigate to dashboard
         this.isBusy=false;
-      },
-      error => {
-        this.showMessage.showError("Error registering user, please try again");
+      }, err => {
+        this.showMessage.showError(err._body);
+        this.isBusy=false;
       });
     }
-
   }
 
+  //This method is used to validate password and confirm password match
   passwordValidator(control: AbstractControl) {
     if (control && (control.value !== null || control.value !== undefined)) {
       const confirmPassword = control.value;
@@ -71,8 +66,6 @@ export class RegistrationComponent {
         }
       }
     }
-
     return null;
-  }
-  
+  } 
 }
