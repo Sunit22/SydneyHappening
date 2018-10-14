@@ -27,61 +27,61 @@ import { EventEditComponent } from './event-edit/event-edit.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    DashboardComponent,
-    RegistrationComponent,
-    EventsComponent,
-    HeaderComponent,
-    FooterComponent,
-    ContactComponent,
-    EventCreateComponent,
-    EventEditComponent,
-    AboutUsComponent
-  ],
+	declarations: [
+		AppComponent,
+		LoginComponent,
+		DashboardComponent,
+		RegistrationComponent,
+		EventsComponent,
+		HeaderComponent,
+		FooterComponent,
+		ContactComponent,
+		EventCreateComponent,
+		EventEditComponent,
+		AboutUsComponent
+	],
 
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpModule,
-    HttpClientModule,
-    OwlDateTimeModule,
-    OwlNativeDateTimeModule,
-    ToastaModule,
-    RouterModule.forRoot([
-      { path: '', 
-        component: LoginComponent 
-      },
-      { path: 'dashboard', 
-        component: DashboardComponent,
-        canActivate: [AuthGuard]
-      },
-      { path: 'events', 
-        component: EventsComponent, 
-        data: {title: 'Event-Details'},
-        canActivate: [AuthGuard] 
-      },
-      { path: 'registration', 
-        component: RegistrationComponent 
-      },
-      { path: 'contact', component: ContactComponent },
-      { path: 'eventCreate',
-        component: EventCreateComponent,
-        canActivate: [AuthGuard] 
-      },
-      { path: 'eventEdit',
-      component: EventEditComponent,
-      canActivate: [AuthGuard] 
-    },
-    { path: 'about', 
-    component: AboutUsComponent 
-  }
-    ])
-  ],
-  providers: [EventService, AuthenticationService, RegisterationService, EmailService, AuthGuard],
-  bootstrap: [AppComponent]
+	imports: [
+		BrowserModule,
+		BrowserAnimationsModule,
+		FormsModule,
+		ReactiveFormsModule,
+		HttpModule,
+		HttpClientModule,
+		OwlDateTimeModule,
+		OwlNativeDateTimeModule,
+		ToastaModule,
+		RouterModule.forRoot([
+		{ path: '', 
+			component: LoginComponent 
+		},
+		{ path: 'dashboard', 
+			component: DashboardComponent,
+			canActivate: [AuthGuard] //checks AuthenticationService to confirm if user can go to page or not
+		},
+		{ path: 'events', 
+			component: EventsComponent, 
+			data: {title: 'Event-Details'},
+			canActivate: [AuthGuard] //checks AuthenticationService to confirm if user can go to page or not
+		},
+		{ path: 'registration', 
+			component: RegistrationComponent 
+		},
+		{ path: 'contact', component: ContactComponent },
+		{ path: 'eventCreate',
+			component: EventCreateComponent,
+			canActivate: [AuthGuard] //checks AuthenticationService to confirm if user can go to page or not
+		},
+		{ path: 'eventEdit',
+			component: EventEditComponent,
+			canActivate: [AuthGuard] //checks AuthenticationService to confirm if user can go to page or not
+		},
+		{ path: 'about', 
+			component: AboutUsComponent 
+		}
+		])
+	],
+	providers: [EventService, AuthenticationService, RegisterationService, EmailService, AuthGuard],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }
