@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../services/event.service';
-import { ActivatedRoute,Router } from '@angular/router';
-import { ToastrService } from '../services/toastr.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from '../services/toastr.service'; //show error or success message
 
 @Component({
   selector: 'app-event-edit',
@@ -10,24 +10,31 @@ import { ToastrService } from '../services/toastr.service';
 })
 export class EventEditComponent implements OnInit {
 
-  eventID: string;
-  event:Event;
+  eventID: string; //Contains the event id of the event being edited
+  event: Event; //This would be used to hold the data of existing event
+  isBusy:boolean= false; //prevent multiple submits of form, once user sends request becomes true until server response.
 
-  constructor(private eventService : EventService, private router : ActivatedRoute, private showMessage:ToastrService,private route:Router) { }
-
-  isBusy:boolean= false;
-
+  constructor(private eventService : EventService, private router : ActivatedRoute, 
+    private showMessage:ToastrService,private route:Router) { }
+  
   ngOnInit() {
-    this.getEvent(this.router.queryParams.subscribe(params => {this.eventID = params['eventID']}));
+    this.getEvent(this.router.queryParams.subscribe(params => {
+      this.eventID = params['eventID']})
+    );
   }
 
+  //get the event to be edited.
   getEvent(eventID){
     this.eventService.getEvent(this.eventID).subscribe(event=> {      
       this.event = event;
     })
   }
 
-  updateEvent(eventID, eventData){
+  /*
+  * get form data and call server API to update the event
+  * can be only be used by admin IDs
+  */
+  updateEvent(eventID, eventData) {
     this.isBusy = true;
     var eventInfo = {
       _id: eventID,
@@ -38,15 +45,18 @@ export class EventEditComponent implements OnInit {
       AvailableSeats: eventData.value.availableSeats,
       CreatedBy: localStorage.getItem('email')
     };
-    this.eventService.updateEvent(eventID,eventInfo).subscribe(event=>{
-      if(event == 'success'){
-        this.showMessage.showSuccess("Event updated successfully")
+    this.eventService.updateEvent(eventID,eventInfo).subscribe(event => {
+      if(event == 'success') {
+        this.showMessage.showSuccess("Event updated successfully");
         this.route.navigate(["/dashboard"]);
       }
       this.isBusy = false;
+    }, err => {
+      this.showMessage.showError(err.error); //show message that update event failed.
     });
   }
 
+  //Get the date in day-month-year format
   getFormattedDate(date){
     var formattedDate = new Date(date)
     var day = formattedDate.getDate();
@@ -55,11 +65,11 @@ export class EventEditComponent implements OnInit {
     return day + "-" + month + "-" + year
   }
 
+  //Get the time in hours:minutes format
   getFormattedTime(time) {
     var hours = time.getHours();
     var mins = time.getMinutes();
     var seconds = time.getSeconds();
     return hours + ":" + mins;  
   }
-
 }

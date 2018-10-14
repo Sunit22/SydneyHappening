@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, NavigationExtras  } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from '../services/event.service';
 import { Event } from '../models/Event';
 import { UserEventRegister } from '../models/UserEventRegister';
-import { ToastrService } from '../services/toastr.service';
+import { ToastrService } from '../services/toastr.service'; //show error or success message
 
 @Component({
   selector: 'app-events',
@@ -12,7 +12,7 @@ import { ToastrService } from '../services/toastr.service';
 })
 export class EventsComponent implements OnInit {
   
-  eventId: string;
+  eventId: string; //store event id 
   event: Event = {
     _id: '',
     name: '',
@@ -21,33 +21,35 @@ export class EventsComponent implements OnInit {
     time: '',
     seats: 0,
     createdBy: ''
-  };
+  }; //store the details of the event. 
 
   userEvent: UserEventRegister = {
     userID: '',
     eventID: ''
-  };
+  }; //capture user and event details to add user to event
 
   constructor(private route: ActivatedRoute,private eventService: EventService, private router: Router,
     private showMessage: ToastrService) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(
-      params => {this.eventId = params['eventID']})
-      
-   this.eventService.getEvent(this.eventId).subscribe(event=>{
+      params => {this.eventId = params['eventID']});  
+    this.eventService.getEvent(this.eventId).subscribe(event => {
       this.event = event;
+    }, err => {
+      this.showMessage.showError(err.error);
     });    
   }
 
+  //register the user to event.
   registerToAttend() {
     this.userEvent.userID = localStorage.getItem('userID');
     this.userEvent.eventID = this.event._id;
-    this.eventService.registerToAttend(this.userEvent).subscribe( response => {
-    this.showMessage.showSuccess("You have successfully registered for the event!");
-    this.router.navigate(['/dashboard']);
-    },
-      err=>{});
-  }
-  
+    this.eventService.registerToAttend(this.userEvent).subscribe(response => {
+      this.showMessage.showSuccess("You have successfully registered for the event!");
+      this.router.navigate(['/dashboard']);
+    }, err=>{
+      this.showMessage.showError(err.error);
+    });
+  }  
 }

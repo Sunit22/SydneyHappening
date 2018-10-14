@@ -6,24 +6,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  
-  
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+  //This is used to check if user has logged in, else do not display.
   checkIfLoggedIn() {
     if(localStorage.getItem('token')) {
       return true;
     }
-    else 
+    else {
       return false;
+    }   
   }
-
+  
+  /*
+  * This clears the local storage
+  * since token saved in local storage is erased, user logs out.
+  */
   logout() {
-    console.log("inside logout");
     localStorage.clear();
-    console.log(localStorage.getItem('token'));
-  }
-  constructor() { }
-
-  ngOnInit() {
   }
 
 }
