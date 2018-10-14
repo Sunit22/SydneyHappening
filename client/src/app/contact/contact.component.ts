@@ -26,6 +26,7 @@ export class ContactComponent implements OnInit {
   ngOnInit() {
   }
   
+  //this is used to check if the form is valid by passing each field's name from html
   isValid(controlName) {
     return this.sendMessage.get(controlName).invalid && this.sendMessage.get(controlName).touched;
   }
