@@ -36,11 +36,12 @@ export class ContactComponent implements OnInit {
     if(this.sendMessage.valid) {
       this.emailService.sendEmail(this.sendMessage.value).subscribe(response => {
         this.showMessage.showSuccess("Your message has been sent to the admins.");
+        this.isBusy=false;
       },
       err => {
-        this.showMessage.showError("An error occured, please send messag again");
-      })
-      this.isBusy=false;
+        this.showMessage.showError(err.error); //display error message from server
+        this.isBusy=false; 
+      });
     }
   }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EventService } from '../services/event.service';
 import { Router, NavigationExtras } from '@angular/router';
 import { UserData } from '../models/userData';
-import { ToastrService } from '../services/toastr.service';
+import { ToastrService } from '../services/toastr.service'; //show error or success message
 import { Event } from '../models/Event';
 
 @Component({
@@ -36,6 +36,8 @@ export class DashboardComponent implements OnInit {
   getAllEvents() {  
     this.eventService.getEvents().subscribe(events => { 
       this.eventList = events;
+    }, err => {
+      this.showMessage.showError(err.error);
     });
   }
 
@@ -51,6 +53,8 @@ export class DashboardComponent implements OnInit {
       else {
         this.showEvents=false;
       }
+    }, err => {
+      this.showMessage.showError(err.error);
     });
   }
 
@@ -94,7 +98,7 @@ export class DashboardComponent implements OnInit {
         this.showMessage.showError("Event you trying to delete does not exist");
       }
     }, err => {
-      this.showMessage.showError(err);
+      this.showMessage.showError(err.error); 
     });
   }
 }

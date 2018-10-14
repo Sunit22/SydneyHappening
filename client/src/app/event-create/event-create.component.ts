@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../services/event.service';
-import { Router, NavigationExtras } from '@angular/router';
-import { ToastrService } from '../services/toastr.service';
+import { Router } from '@angular/router';
+import { ToastrService } from '../services/toastr.service'; //show error or success message
 
 @Component({
   selector: 'app-event-create',
@@ -12,13 +12,17 @@ export class EventCreateComponent implements OnInit {
 
   constructor(private eventService : EventService,private router: Router,private showMessage:ToastrService) { }
 
-  isBusy:boolean= false;
+  isBusy:boolean= false; //prevent multiple submits of form, once user sends request becomes true until server response.
 
   ngOnInit() {
   }
 
+  /*
+  * This event is used to create a new event by getting data in the form.
+  * After creating the event, navigate to dashboard. 
+  */
   addEvent(eventData) {
-   this.isBusy=true;
+    this.isBusy=true;
     var eventInfo = {
       EventName: eventData.value.eventName,
       EventVenue: eventData.value.eventVenue,
@@ -28,36 +32,33 @@ export class EventCreateComponent implements OnInit {
       CreatedBy: localStorage.getItem('email')
     };
     this.eventService.addEvent(eventInfo).subscribe(event => {
-      if(event == "success"){
-        this.getAllEvents();
+      if(event == "success") {
+        this.router.navigate(['/dashboard']);
         this.showMessage.showSuccess("Event added successfully");
       }
       else {
-        this.showMessage.showError("Failed to save your event");
+        this.showMessage.showError("Failed to create new event");
       }
       this.isBusy=false;
+    }, err => {
+      this.showMessage.showError(err.error);
+      this.isBusy=false;
     });
-   
   }
 
-  getAllEvents(){
-    this.eventService.getEvents().subscribe(events => {
-      this.router.navigate(['/dashboard']);
-    })
-  }
-
-  getFormattedDate(date){
-    var formattedDate = new Date(date)
+  //Get the date in day-month-year format
+  getFormattedDate(date) {
+    var formattedDate = new Date(date);
     var day = formattedDate.getDate();
     var month = formattedDate.getMonth() + 1;
     var year = formattedDate.getFullYear();
-    return day + "-" + month + "-" + year
+    return day + "-" + month + "-" + year;
   }
 
+  //Get the time in hours:minutes format
   getFormattedTime(time) {
     var hours = time.getHours();
     var mins = time.getMinutes();
-    var seconds = time.getSeconds();
     return hours + ":" + mins;  
   }
     
