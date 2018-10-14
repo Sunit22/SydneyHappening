@@ -12,93 +12,88 @@ import { Event } from '../models/Event';
 })
 export class DashboardComponent implements OnInit {
   
-  
-  eventList: Event []; 
-  IsAdmin:boolean;
-  registeredList: any;
-  showEvents: boolean= false;
-
-  userEventList: Event[];
+  eventList: Event []; //contains array of events to be added in dashboard
+  IsAdmin: boolean; //store if admin or not 
+  registeredList: any; //contains list of events registered by the user
+  showEvents: boolean= false; //check if to show user registered events
+  user: String; //used to store the username
   userData: UserData = {
     userID: '',
     firstName: ''
-  };
-  user = '';
-
+  }; //used to fetch the events registered to the user. 
+  
   constructor(private eventService: EventService, private router: Router, private showMessage: ToastrService) {
     this.IsAdmin = localStorage.getItem('IsAdmin').toLowerCase() =='true' ? true : false;    
   }
 
   ngOnInit() {
-   this.user = localStorage.getItem('firstName');
-   this.getAllEvents();
-   this.getUserEvents();
+    this.user = localStorage.getItem('firstName');
+    this.getAllEvents();
+    this.getUserEvents();
   }
 
-  getAllEvents(){
-    //Retreives events from the API    
+  //Get all the events from the server API
+  getAllEvents() {  
     this.eventService.getEvents().subscribe(events => { 
       this.eventList = events;
     });
   }
 
-  //get events registered to by user
+  //get events registered to by the user
   getUserEvents() {
     this.userData.firstName = localStorage.getItem('firstName');
     this.userData.userID = localStorage.getItem('userID');
-    this.eventService.getUserEvents(this.userData).subscribe( events => {
-      if(events){
+    this.eventService.getUserEvents(this.userData).subscribe(events => {
+      if(events) {
         this.registeredList = events;
         this.showEvents=true;
       }
-      else{
+      else {
         this.showEvents=false;
       }
-    })
-
+    });
   }
 
-//Gets Event by ID
-  eventDetails(eventID:string){
+  //Navigate to a Events page to display event details.
+  eventDetails(eventID: string) {
     let navigationExtras: NavigationExtras = {
-            queryParams: {
-                "eventID": eventID
-            }
-        };
+      queryParams: {
+        "eventID": eventID
+      }
+    };
     this.router.navigate(['/events'], navigationExtras);
   }
 
-  //Update Event by Event ID
-  updateEvent(eventID:string){    
+  //Update an Event, can be only used from admin Ids
+  updateEvent(eventID: string){    
     let navigationExtras: NavigationExtras = {
       queryParams: {
-          "eventID": eventID
+        "eventID": eventID
       }
-  };
+    };
     this.router.navigate(['/eventEdit'], navigationExtras);
   }
 
+  //fetch event id for deletion, this is called from the dashboard html 
   selectForDeletion(eventID: string)
   {    
-    localStorage.setItem("eventID",eventID);    
+    localStorage.setItem("eventID", eventID);    
   }
-
   
-//Deletes Event by ID
-  deleteEvent(){    
+ //Delete an event, this can be only called from an admin ids
+  deleteEvent() {    
     const _id = localStorage.getItem("eventID");
-    this.eventService.deleteEvent(_id).subscribe(data=>{
+    this.eventService.deleteEvent(_id).subscribe(data => {
       let message = data;
-      if(message=='success')
-        {
-          localStorage.removeItem("eventID");
-          this.showMessage.showSuccess("Event deleted successfully");
-          this.getAllEvents();
-        }
-        else{
-          this.showMessage.showError("Event you trying to delete does not exist");
-        }
-    }, err=> {
+      if(message=='success') {
+        localStorage.removeItem("eventID");
+        this.showMessage.showSuccess("Event deleted successfully");
+        this.getAllEvents();
+      }
+      else {
+        this.showMessage.showError("Event you trying to delete does not exist");
+      }
+    }, err => {
       this.showMessage.showError(err);
     });
   }
