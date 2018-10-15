@@ -4,6 +4,7 @@ import { Router, NavigationExtras } from '@angular/router';
 import { UserData } from '../models/userData';
 import { ToastrService } from '../services/toastr.service'; //show error or success message
 import { Event } from '../models/Event';
+import { UserEventRegister } from '../models/UserEventRegister';
 
 @Component({
 	selector: 'app-dashboard',
@@ -12,15 +13,15 @@ import { Event } from '../models/Event';
 })
 export class DashboardComponent implements OnInit {
   
-	eventList: Event []; //contains array of events to be added in dashboard
-	IsAdmin: boolean; //store if admin or not 
-	registeredList: any; //contains list of events registered by the user
-	showEvents: boolean= false; //check if to show user registered events
-	user: String; //used to store the username
+	eventList: Event []; 				//contains array of events to be added in dashboard
+	IsAdmin: boolean; 					//store if admin or not 
+	registeredList: any; 				//contains list of events registered by the user
+	showEvents: boolean= false; 		//check if to show user registered events
+	user: String; 						//used to store the username
 	userData: UserData = {
 		userID: '',
 		firstName: ''
-	}; //used to fetch the events registered to the user. 
+	}; 									//used to fetch the events registered to the user. 
 	
 	constructor(private eventService: EventService, private router: Router, 
 		private showMessage: ToastrService) {
@@ -47,8 +48,10 @@ export class DashboardComponent implements OnInit {
 		this.userData.firstName = localStorage.getItem('firstName');
 		this.userData.userID = localStorage.getItem('userID');
 		this.eventService.getUserEvents(this.userData).subscribe(events => {
-		if(events) {
-			this.registeredList = events;
+		if(events) {			
+			for (var event in events) {				
+				this.registeredList = events[event];					
+			}
 			this.showEvents=true;
 		}
 		else {

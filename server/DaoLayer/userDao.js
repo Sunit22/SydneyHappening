@@ -32,5 +32,35 @@ module.exports = {
                 callback(null, user);
             }
         });
+    },
+
+     /*
+    * Use this function to register event
+    * @eventDetails Json with details of user to register
+    */
+    registerToAttend: function(id, eventDetails, callback){
+        Users.findByIdAndUpdate(id, {$push: eventDetails}, function(err, users) {
+            if(err) {
+                callback(err, null);
+            }
+            if(users) {
+                callback(null, users);
+            } 
+        });
+    },
+
+    /*
+    * Use this function to fetch event
+    * @eventDetails Json with details of user to register
+    */
+    findUsersByEvents: function(id,callback){
+        Users.findById(id, {"EventsRegistered": 1}, function(err, userEvents){
+            if(err) {
+                callback(err, null);
+            }
+            if(userEvents) {
+                callback(null, userEvents.EventsRegistered);
+            }
+        });
     }
 }

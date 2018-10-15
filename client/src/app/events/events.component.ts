@@ -52,6 +52,7 @@ export class EventsComponent implements OnInit {
 			this.showMessage.showSuccess("You have successfully registered for the event!");
 			this.router.navigate(['/dashboard']);
 		}, err=>{
+			console.log(err)
 			this.showMessage.showError(err.error);
 		});
 	}  

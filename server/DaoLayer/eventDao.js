@@ -83,8 +83,12 @@ module.exports = {
         });
     },
 
-    //pass seat update as the number to be updated from adapter so it can be generic
-    decrementAvailableSeats: function(id, seatUpdate, callback) {
+     /*
+    * use this function to update available seats for the event by event id
+    * the callback function returns event if found
+    * error if db error or empty callback if not found
+    */
+    updateAvailableSeats: function(id, seatUpdate, callback) {
         Events.findByIdAndUpdate(id, {$inc : {"AvailableSeats": seatUpdate}}, function(err,events) {
             if(err) {
                 callback(err, null);
@@ -94,11 +98,4 @@ module.exports = {
             } 
         });
     },
-
-
-    
-
-
-
-
 }
