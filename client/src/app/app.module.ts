@@ -25,6 +25,7 @@ import { ContactComponent } from './contact/contact.component';
 import { EventCreateComponent } from './event-create/event-create.component';
 import { EventEditComponent } from './event-edit/event-edit.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
 	declarations: [
@@ -38,7 +39,8 @@ import { AboutUsComponent } from './about-us/about-us.component';
 		ContactComponent,
 		EventCreateComponent,
 		EventEditComponent,
-		AboutUsComponent
+		AboutUsComponent,
+		NotFoundComponent
 	],
 
 	imports: [
@@ -78,7 +80,13 @@ import { AboutUsComponent } from './about-us/about-us.component';
 		},
 		{ path: 'about', 
 			component: AboutUsComponent 
-		}
+		},
+		{ path: 'page-not-found', 
+			component: NotFoundComponent 
+		},
+		{ path: '**', 
+			redirectTo: 'page-not-found' 
+		},
 		])
 	],
 	providers: [EventService, AuthenticationService, RegisterationService, EmailService, AuthGuard],
