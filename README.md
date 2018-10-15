@@ -67,5 +67,5 @@ For this project we have used [MLAB](https://mlab.com/), for using database serv
 For installing mongodb please [follow these steps](https://docs.mongodb.com/manual/installation/). You can update the configuration to use your local database in `SydneyHappening/server/config/DatabaseConnectionString.js`. 
 
 ## Screenshot
-![alt text](https://imgur.com/G9jqJ6R)
+![Screen1](https://i.imgur.com/G9jqJ6R.png)
 
