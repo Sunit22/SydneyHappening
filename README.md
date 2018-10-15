@@ -21,6 +21,7 @@ Non-functional features include:<br>
    * [Code Scaffolding](#code-scaffolding)
    * [Build](#build)
    * [Database](#database)
+   * [Screenshot](#screenshot)
 <!--te-->
 
 ## Getting Started
@@ -64,3 +65,7 @@ For deploying into Heroku server, [follow these steps](https://devcenter.heroku.
 ## Database
 For this project we have used [MLAB](https://mlab.com/), for using database services with mongodb. However, you can use local mongodb and connect this application to local database. <br>
 For installing mongodb please [follow these steps](https://docs.mongodb.com/manual/installation/). You can update the configuration to use your local database in `SydneyHappening/server/config/DatabaseConnectionString.js`. 
+
+## Screenshot
+![alt text](https://imgur.com/G9jqJ6R)
+
