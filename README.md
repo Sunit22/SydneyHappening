@@ -16,8 +16,8 @@ Non-functional features include:<br>
 
 ## Table of contents
 <!--ts-->
-   * [Development Server](#Development Server)
-   * [Code Scaffolding](#Code Scaffolding)
+   * [Development Server](#Development-Server)
+   * [Code Scaffolding](#Code-Scaffolding)
    * [Build](#Build)
    * [Deployment](#deployment)
 <!--te-->
