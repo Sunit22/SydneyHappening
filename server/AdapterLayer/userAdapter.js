@@ -3,7 +3,7 @@ var router = express.Router();
 var Users = require('../Models/Users.js');
 var mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-var signInKey = require('../signInKeys/signInKey');
+var signInKey = require('../config/signInKey');
 const jwt = require('jsonwebtoken'); 
 var userDao = require('../DaoLayer/userDao');
 
