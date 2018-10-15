@@ -1,6 +1,20 @@
 # SydneyHappening
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.2.
+Sydney Happening is web-application created using Angular CLI for client-side coding and Node.js for server-side coding. This application allows registered users to create and register to events posted. 
+Some of the functionalities include:
+•	Register User
+•	Login
+•	Register to events
+•	Create new events
+•	Send email to site admins.
+•	Update events (Admin functionality)
+•	Delete events (Admin functionality)
+Non-functional features include:
+•	JWT token validation for login and server calls
+•	Authentication for accessing site urls
+•	Responsive UI.
+
+##Table of contents
 
 ## Development server
 
