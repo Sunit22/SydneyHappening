@@ -10,7 +10,6 @@ var signInKey = require('../config/signInKey');
 */
 module.exports = {
      verifyToken: function(req, res, next) {
-         console.log("Lo main aagaya!!!")
         let token = req.get('token');
         jwt.verify(token, signInKey.signInKey, function(err, tokenData) {
           if(err) {
