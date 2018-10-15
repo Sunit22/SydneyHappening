@@ -15,7 +15,7 @@ const emailRoutes = require("./AdapterLayer/emailAdapter");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, '/public/')));
+app.use(express.static(path.join(__dirname, '/dist/')));
 
 const DB = require('./config/DatabaseConnectionString').mongoURI;
 //Connect to DB
