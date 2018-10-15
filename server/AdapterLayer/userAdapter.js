@@ -6,6 +6,8 @@ const bcrypt = require('bcryptjs');
 var signInKey = require('../config/signInKey');
 const jwt = require('jsonwebtoken'); 
 var userDao = require('../DaoLayer/userDao');
+var checkForToken = require('../config/verifyToken');
+
 
 //this route would be used to register a new user. 
 router.post('/register', function(req, res, next) {   
@@ -99,27 +101,8 @@ router.post('/login', function(req, res, next) {
 * used to validate the jwt token.
 * redirect user to dashboard if already logged in through valid token.
 */
-router.get('/validateToken', verifyToken,function(req, res, next) {
+router.get('/validateToken', checkForToken.verifyToken,function(req, res, next) {
     return res.status(200).json("loggedin");
 });
-
-/*
-* This function would be used as a middleware function.
-* Verify the token passed in the header.
-* If the token is not present or expiered, return http status 400.
-* If the token is valid, move to the next function. 
-*/
-function verifyToken(req, res, next) {
-    let token = req.get('token');
-    jwt.verify(token, signInKey.signInKey, function(err, tokenData) {
-        if(err) {
-            return res.status(400).json("Unauthorized request");
-        }
-        if(tokenData) {
-            decodedToken = tokenData;
-            next();
-        }
-    });
-}
 
 module.exports = router;

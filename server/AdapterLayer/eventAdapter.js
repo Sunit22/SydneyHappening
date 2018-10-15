@@ -3,13 +3,12 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Events = require('../Models/Events.js');
 var Users = require('../Models/Users');
-var signInKey = require('../config/signInKey');
-const jwt = require('jsonwebtoken'); 
 var eventDao = require('../DaoLayer/eventDao');
 var userDao = require('../DaoLayer/userDao');
+var checkForToken = require('../config/verifyToken');
 
 // this route will be used to fetch all events
-router.get('/getAllEvents', verifyToken, function(req, res, next) {  
+router.get('/getAllEvents', checkForToken.verifyToken, function(req, res, next) {  
   	eventDao.getAllEvents(function(err, events) {
     	if (err) {
       		res.status(500).json("Error while fething the events, please try again")
@@ -21,7 +20,7 @@ router.get('/getAllEvents', verifyToken, function(req, res, next) {
 });
 
 // this route will be used to fetch specific event by EventID
-router.get('/getEvent/:_id', verifyToken, function(req, res, next) {
+router.get('/getEvent/:_id', checkForToken.verifyToken, function(req, res, next) {
     eventDao.getEventByEventID(req.params._id ,function(err, event){
         if (err) {
           res.status(500).json("Error while fething the event, please try again")
@@ -33,7 +32,7 @@ router.get('/getEvent/:_id', verifyToken, function(req, res, next) {
 });
 
 // this route will be used to Add New Event
-router.post('/addEvent', verifyToken, function(req, res, next) {
+router.post('/addEvent', checkForToken.verifyToken, function(req, res, next) {
     const newEvent = new Events({
         _id : new mongoose.Types.ObjectId(),
         EventName : req.body.EventName,
@@ -54,7 +53,7 @@ router.post('/addEvent', verifyToken, function(req, res, next) {
 });
 
 // this route will be used to Delete existing event
-router.delete('/deleteEvent/:_id', verifyToken, function(req, res, next) {
+router.delete('/deleteEvent/:_id', checkForToken.verifyToken, function(req, res, next) {
   	eventDao.deleteEvent({_id: req.params._id},function (err, event) {
     	if (err) {
       		res.status(500).json("Error while deleting the event, please try again")
@@ -66,7 +65,7 @@ router.delete('/deleteEvent/:_id', verifyToken, function(req, res, next) {
 });
 
 // this route will be used to Update existing event
-router.patch('/updateEvent', verifyToken,function(req, res, next) {
+router.patch('/updateEvent', checkForToken.verifyToken,function(req, res, next) {
 	//create json to save the updated event
   	const eventJson = {
     	"EventName" : "" +req.body.EventName+ "",
@@ -88,7 +87,7 @@ router.patch('/updateEvent', verifyToken,function(req, res, next) {
 
 
 // this route will be used to register a user to particular event 
-router.post('/registerToAttend', verifyToken, function(req,res, next){
+router.post('/registerToAttend', checkForToken.verifyToken, function(req,res, next){
   //first check if seats are available, someone else may book at the same time. 
   eventDao.getEventByEventID(req.body.eventID, function(err, event){
       if(err){
@@ -132,7 +131,7 @@ router.post('/registerToAttend', verifyToken, function(req,res, next){
 });
 
 // this route will be used to retireve the events registered by user.
-router.post('/getUserEvents',verifyToken,function(req, res, nex) {
+router.post('/getUserEvents', checkForToken.verifyToken, function(req, res, nex) {
   userDao.findUsersByEvents(req.body.userID, function(err, userEvents){
     if(err) {
       return res.status(500).json("There was error fetching user events");
@@ -142,18 +141,5 @@ router.post('/getUserEvents',verifyToken,function(req, res, nex) {
     }
   })
 });
-
-function verifyToken(req, res, next) {
-  let token = req.get('token');
-  jwt.verify(token, signInKey.signInKey, function(err, tokenData) {
-    if(err) {
-      return res.status(400).json("Unauthorized request");
-    }
-    if(tokenData) {
-      decodedToken = tokenData;
-      next();
-    }
-  })
-}
 
 module.exports = router;
