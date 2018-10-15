@@ -49,9 +49,4 @@ app.use((req, res, next) => {
     });
   });
 
-//   router.use('*', (req, res) => {
-//     res.send(path.join(__dirname, '/dist/SydneyHappening/index.html'));
-// });
-
-
 module.exports= app;
