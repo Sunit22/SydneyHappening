@@ -20,7 +20,7 @@ Non-functional features include:<br>
    * [Development Server](#development-server)
    * [Code Scaffolding](#code-scaffolding)
    * [Build](#build)
-   * [Deployment](#deployment)
+   * [Database](#database)
 <!--te-->
 
 ## Getting Started
@@ -40,20 +40,27 @@ Once the installation has finished, navigate to `SydneyHappening/server/server.j
 `node server.js`<br>
 If the port has not been changed, by default, the server should start at `http://localhost:3000` <br>
 
-Navigate to `SydneyHappening/client/` and give command `npm install` to install all the dependencies present in `package.json` <br>
+Navigate to `SydneyHappening/client/` and give command `npm install` to install all the dependencies in `package.json`<br>
 Once the installation has been completed run command: <br>
 `ng serve` <br> Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### For Generating new component in client side, use command: 
+`ng generate component component-name`. 
+### For Generating new service in client side, use command
+`ng generate service service-name`.
+### Use following to generate other features like modules etc
+`ng generate directive|pipe|class|guard|interface|enum|module`.
 
 ## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Navigate `SydneyHappening/client/` and run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory which has been modified to be created in `SydneyHappening/server/` folder, for easy deployment. <br>
+For changing where the `dist/` folder is created please modify `SydneyHappening/client/angular.json`. <br>
+*Warning* if you change the location to save `dist/` directory, please update `SydneyHappening/server/app.js` with correct path. 
 
 ## Deployment
+For deployment, Navigate `SydneyHappening/client/` and run `ng build` to build the angular side of the project. This would create a directory named `dist/` in `SydneyHappening/server/` folder. You can deploy the project as a Node.js project from this directory. 
+For deploying into Heroku server, [follow these steps](https://devcenter.heroku.com/articles/deploying-nodejs).
 
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Database
+For this project we have used [MLAB](https://mlab.com/), for using database services with mongodb. However, you can use local mongodb and connect this application to local database. <br>
+For installing mongodb please [follow these steps](https://docs.mongodb.com/manual/installation/). You can update the configuration to use your local database in `SydneyHappening/server/config/DatabaseConnectionString.js`. 
