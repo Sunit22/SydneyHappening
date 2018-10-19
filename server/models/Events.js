@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+//MongoDb schema for Events
 const Events = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     EventName: {

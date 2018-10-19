@@ -14,11 +14,11 @@ router.post('/register', function(req, res, next) {
     userDao.findUser(req.body.email, function(err, user) {
         if(err) {
             //return error with db
-            return res.status(501).json("server error registering user");
+            return res.status(501).json({error: "server error registering user"});
         }
         if(user) {
             //email already registered
-            return res.status(501).json("Email already registered.");
+            return res.status(501).json({error: "Email already registered."});
         }  
 
         /*
@@ -38,10 +38,10 @@ router.post('/register', function(req, res, next) {
                 });
                 userDao.registerUser(registerUser, function(err, user) {
                     if(user) {
-                        return res.status(200).json("user registered");
+                        return res.status(200);
                     }
                     else {
-                        return res.status(501).json("error registering user");
+                        return res.status(501).json({error: "error registering user"});
                     }
                 });
             });
@@ -87,7 +87,7 @@ router.post('/login', function(req, res, next) {
                     });
                 }
                 else {
-                    return res.status(501).json("password does not match");
+                    return res.status(500).json("password does not match");
                 }
             });
         } 
@@ -102,7 +102,7 @@ router.post('/login', function(req, res, next) {
 * redirect user to dashboard if already logged in through valid token.
 */
 router.get('/validateToken', checkForToken.verifyToken,function(req, res, next) {
-    return res.status(200).json("loggedin");
+    return res.status(200);
 });
 
 module.exports = router;

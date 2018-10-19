@@ -1,4 +1,4 @@
-var Events = require('../Models/Events.js');
+var Events = require('../models/Events.js');
 
 module.exports = {
     
@@ -56,7 +56,7 @@ module.exports = {
     * the callback function returns event if found
     * error if db error or empty callback if not found
     */
-    deleteEvent: function(id, callback){
+    deleteEvent: function(id, callback) {
         Events.findByIdAndRemove(id, function (err, event) {
             if(err) {
                 callback(err, null);
@@ -93,7 +93,7 @@ module.exports = {
             if(err) {
                 callback(err, null);
             }
-            if(events){
+            if(events) {
                 callback(null, events);
             } 
         });

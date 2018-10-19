@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+//MongoDb schema for user.
 const Users = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     FirstName: {

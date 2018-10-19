@@ -11,6 +11,8 @@ import { UserEventRegister } from '../models/UserEventRegister';
 	templateUrl: './dashboard.component.html',
 	styleUrls: ['./dashboard.component.css']
 })
+
+// Component class for the dashboard
 export class DashboardComponent implements OnInit {
   
 	eventList: Event []; 				//contains array of events to be added in dashboard

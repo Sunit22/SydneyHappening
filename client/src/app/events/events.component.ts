@@ -10,6 +10,8 @@ import { ToastrService } from '../services/toastr.service'; //show error or succ
 	templateUrl: './events.component.html',
 	styleUrls: ['./events.component.css']
 })
+
+// Component class to show the event details page.
 export class EventsComponent implements OnInit {
   
 	eventId: string; //store event id 

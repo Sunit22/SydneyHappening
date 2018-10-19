@@ -15,6 +15,10 @@ interface AuthenticationReponse {
 @Injectable({
   	providedIn: 'root'
 })
+/**
+ * This class is used to provide the authentication service.
+ * Validate login, token verification for login
+ */
 export class AuthenticationService {
 
 	apiUrl : string; //contains url to be used for server

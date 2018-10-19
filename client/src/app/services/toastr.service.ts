@@ -4,6 +4,8 @@ import { ToastaService, ToastOptions } from 'ngx-toasta';
 @Injectable({
   	providedIn: 'root'
 })
+
+//This class is used to provide servies to show pop up messages to user.
 export class ToastrService {
 
 	constructor(public toastr: ToastaService) { }

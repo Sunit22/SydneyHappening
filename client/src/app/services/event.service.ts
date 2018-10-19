@@ -7,6 +7,7 @@ import { environment } from "../../environments/environment";
   	providedIn: 'root'
 })
 
+// This class is used to provide services related to Events like create, update, delete, register etc.
 export class EventService {
 
 	apiUrl : string;

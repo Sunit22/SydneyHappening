@@ -1,3 +1,4 @@
+//This model is used to capture the event details
 export class Event{
     _id: string;
     name: string;

@@ -5,6 +5,8 @@ import { environment } from "../../environments/environment";
 @Injectable({
   	providedIn: 'root'
 })
+
+//This class is used to provide the email services. 
 export class EmailService {
 
 	apiUrl : string; //contains the url of the server.

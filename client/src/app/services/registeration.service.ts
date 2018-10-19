@@ -6,6 +6,8 @@ import { environment } from "../../environments/environment";
 @Injectable({
   	providedIn: 'root'
 })
+
+//This class provides services related to user registeration.
 export class RegisterationService {
 
 	apiUrl : string; //url of the server to be used 

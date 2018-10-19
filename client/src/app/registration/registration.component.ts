@@ -10,6 +10,8 @@ import { ToastrService } from '../services/toastr.service'; //used to show error
 	templateUrl: './registration.component.html',
 	styleUrls: ['./registration.component.css']
 })
+
+// This component is used to generate the registeration page.
 export class RegistrationComponent {
 
 	registerationForm: FormGroup; //contains the form data for registering a new user.
@@ -42,7 +44,7 @@ export class RegistrationComponent {
 		this.isBusy =true;
 		if(this.registerationForm.valid) {
 			this.registerationService.registerUser(this.registerationForm.value).subscribe(data => {
-				this.showMessage.showSuccess("User registered, please login")
+				this.showMessage.showSuccess("User registered, please login");
 				this.router.navigate(['']); //navigate to dashboard
 				this.isBusy=false;
 			}, err => {

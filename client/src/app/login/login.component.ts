@@ -9,6 +9,8 @@ import { ToastrService } from '../services/toastr.service'; //used to show error
 	templateUrl: './login.component.html',
 	styleUrls: ['./login.component.css']
 })
+
+// Component class to generate the login page.
 export class LoginComponent implements OnInit {
      
 	loginForm: FormGroup; //used to caputure username and password
@@ -60,6 +62,7 @@ export class LoginComponent implements OnInit {
 				this.isBusy = false;
 				this.router.navigate(['/dashboard']);  
 			}, err => {
+				this.isBusy = false;
 				this.showMessage.showError(err.error);
 			}); 
 		}

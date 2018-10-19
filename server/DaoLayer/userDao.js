@@ -50,10 +50,10 @@ module.exports = {
     },
 
     /*
-    * Use this function to fetch event
-    * @eventDetails Json with details of user to register
+    * Use this function to fetch events registered to by the user.
+    * @id userId of the user whose registered event is being fetched. 
     */
-    findUsersByEvents: function(id,callback){
+    findUsersByEvents: function(id, callback){
         Users.findById(id, {"EventsRegistered": 1}, function(err, userEvents){
             if(err) {
                 callback(err, null);

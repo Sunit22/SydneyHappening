@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const sendEmailAccess = require('../DaoLayer/emailDao');
 
+// Service for sending email to admins and confirmation email to user. 
 router.post('/sendEmail', function(req, res, next) {
 
     var useremail = req.body.email;
@@ -17,7 +18,7 @@ router.post('/sendEmail', function(req, res, next) {
     sendEmailAccess.sendEmail(emailFrom, emailTo, emailSubject, messageBody, function(err, message) {
         if(err) {
             console.log(err) //log the error in sending email.
-            return res.status(500).json("Error in sending message to admins");
+            return res.status(500).json({error: "Error in sending message to admins"});
         }
     });
 
@@ -29,11 +30,11 @@ router.post('/sendEmail', function(req, res, next) {
     sendEmailAccess.sendEmail(emailFrom, emailTo, emailSubject, messageBody, function(err, message) {
         if(err) {
             //send correct code and message as email to admins has been successful.
-            return res.status(200).json("email sent, admins would get back to you."); 
+            return res.status(200); 
         }
     });
     //if no error send this message informating user their message is sent.
-    return res.status(200).json("Your message has been sent. We would contact you.")
+    return res.status(200);
 });
 
 module.exports = router;

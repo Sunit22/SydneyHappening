@@ -5,6 +5,8 @@ import { Component, OnInit } from '@angular/core';
 	templateUrl: './header.component.html',
 	styleUrls: ['./header.component.css']
 })
+
+//Component class to generate the header, common in all pages.
 export class HeaderComponent implements OnInit {
 
 	constructor() { }

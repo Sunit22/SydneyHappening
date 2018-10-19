@@ -8,6 +8,8 @@ import { ToastrService } from '../services/toastr.service'; //show error or succ
 	templateUrl: './event-create.component.html',
 	styleUrls: ['./event-create.component.css']
 })
+
+//Component class for the creat event page
 export class EventCreateComponent implements OnInit {
 
 	constructor(private eventService : EventService,private router: Router,private showMessage:ToastrService) { }

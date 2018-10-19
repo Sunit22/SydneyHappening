@@ -8,6 +8,8 @@ import { ToastrService } from '../services/toastr.service'; //used to show error
 	templateUrl: './contact.component.html',
 	styleUrls: ['./contact.component.css']
 })
+
+// This component class is used for contact us page.
 export class ContactComponent implements OnInit {
 
 	sendMessage: FormGroup; //contains the details to be sent for email

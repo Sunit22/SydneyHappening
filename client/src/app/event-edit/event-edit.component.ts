@@ -8,6 +8,8 @@ import { ToastrService } from '../services/toastr.service'; //show error or succ
 	templateUrl: './event-edit.component.html',
 	styleUrls: ['./event-edit.component.css']
 })
+
+//Component class for the Edit event page.
 export class EventEditComponent implements OnInit {
 
 	eventID: string; //Contains the event id of the event being edited
@@ -46,6 +48,7 @@ export class EventEditComponent implements OnInit {
 			AvailableSeats: eventData.value.availableSeats,
 			CreatedBy: localStorage.getItem('email')
 		};
+
 		this.eventService.updateEvent(eventID,eventInfo).subscribe(event => {
 			this.showMessage.showSuccess("Event updated successfully");
 			this.route.navigate(["/dashboard"]);
@@ -57,7 +60,7 @@ export class EventEditComponent implements OnInit {
 	}
 
 	//Get the date in day-month-year format
-	getFormattedDate(date){
+	getFormattedDate(date) {
 		var formattedDate = new Date(date)
 		var day = formattedDate.getDate();
 		var month = formattedDate.getMonth() + 1;
