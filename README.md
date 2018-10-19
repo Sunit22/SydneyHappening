@@ -19,6 +19,7 @@ Some of the functionalities include: <br>
    * [Code Scaffolding](#code-scaffolding)
    * [Build](#build)
    * [Database](#database)
+   * [Sending Email functionality](#sending-email-functionality)
    * [Screenshot](#screenshot)
 <!--te-->
 
