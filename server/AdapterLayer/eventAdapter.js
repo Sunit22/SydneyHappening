@@ -47,7 +47,7 @@ router.post('/addEvent', checkForToken.verifyToken, function(req, res, next) {
         	return res.status(500).json({error: "Error while adding the event, please try again"});
         }
         if(event) {
-        	return res.status(200);
+        	return res.status(200).json({message: "Event created successfully"});
         }
     })
 });
@@ -59,7 +59,7 @@ router.delete('/deleteEvent/:_id', checkForToken.verifyToken, function(req, res,
       		return res.status(500).json({error: "Error while deleting the event, please try again"});
     	}
     	if(event) {
-      		return res.status(200);
+      		return res.status(200).json({message: "Event deleted"});
     	}    
   	});
 });
@@ -80,7 +80,7 @@ router.patch('/updateEvent', checkForToken.verifyToken,function(req, res, next) 
 			return res.status(500).json({error: "Error while updating the event, please try again"});
 		}
 		if(event) {
-			return res.status(200);
+			return res.status(200).json({message: "Event updated successfully"});
 		}    
   	});
 });
@@ -118,7 +118,7 @@ router.post('/registerToAttend', checkForToken.verifyToken, function(req,res, ne
 								return res.status(500).json({error: "Error registering user to event, please try again"});
 							}
 							if(users) {
-								return res.status(200);
+								return res.status(200).json({message: "User registered to event successfully"});
 							}
 						});
 					}

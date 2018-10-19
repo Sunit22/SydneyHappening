@@ -45,7 +45,7 @@ export class RegistrationComponent {
 		if(this.registerationForm.valid) {
 			this.registerationService.registerUser(this.registerationForm.value).subscribe(data => {
 				this.showMessage.showSuccess("User registered, please login");
-				this.router.navigate(['']); //navigate to dashboard
+				this.router.navigate(['']); //navigate to login
 				this.isBusy=false;
 			}, err => {
 				this.showMessage.showError(err._body);

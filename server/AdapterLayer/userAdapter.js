@@ -38,7 +38,7 @@ router.post('/register', function(req, res, next) {
                 });
                 userDao.registerUser(registerUser, function(err, user) {
                     if(user) {
-                        return res.status(200);
+                        return res.status(200).json({message: "User registered"});
                     }
                     else {
                         return res.status(501).json({error: "error registering user"});
@@ -102,7 +102,7 @@ router.post('/login', function(req, res, next) {
 * redirect user to dashboard if already logged in through valid token.
 */
 router.get('/validateToken', checkForToken.verifyToken,function(req, res, next) {
-    return res.status(200);
+    return res.status(200).json({message: "Validated"});
 });
 
 module.exports = router;

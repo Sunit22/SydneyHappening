@@ -30,11 +30,11 @@ router.post('/sendEmail', function(req, res, next) {
     sendEmailAccess.sendEmail(emailFrom, emailTo, emailSubject, messageBody, function(err, message) {
         if(err) {
             //send correct code and message as email to admins has been successful.
-            return res.status(200); 
+            return res.status(200).json({message: "Email sent to admins"}); 
         }
     });
     //if no error send this message informating user their message is sent.
-    return res.status(200);
+    return res.status(200).json({message: "Email sent to admins, they would get back to you."});
 });
 
 module.exports = router;
