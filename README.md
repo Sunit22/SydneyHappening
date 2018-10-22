@@ -58,15 +58,15 @@ Once the installation has been completed run command: <br>
 ## Build
 Navigate to `SydneyHappening/client/` and run command `ng build` to build the project. The build artifacts will be stored in the `dist/` directory which has been modified to be created in `SydneyHappening/server/` folder for easy deployment. <br>
 For changing where the `dist/` folder is created please modify `SydneyHappening/client/angular.json`. <br>
-#### Note:
+**Note:**
 If you change the location to save `dist/` directory, please update `SydneyHappening/server/app.js` with correct path. 
 
 ## Deployment
 For deployment, Navigate to `SydneyHappening/client/` and run command: `ng build` to build the angular side of the project. This would create a directory named `dist/` in `SydneyHappening/server/` folder. You can deploy the project as a Node.js project from this directory. 
 For deploying into Heroku server, [follow these steps](https://devcenter.heroku.com/articles/deploying-nodejs).
-#### Note:
+**Note:**
 The domainURL of the server needs to be updated on  `SydneyHappening/client/src/environments/environment.ts` <br>
-For example, if the URL URL is https://www.sydneyhappening.herokuapp.com then it needs to be updated here.
+For example, if the URL is https://www.sydneyhappening.herokuapp.com then it needs to be updated as the domainURL.
 
 ## Database
 For this project we have used [MLAB](https://mlab.com/), for using database services with mongodb. However, you can use local mongodb and connect this application to local database. <br>
