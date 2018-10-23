@@ -18,6 +18,7 @@ Some of the functionalities include: <br>
    * [Getting Started](#getting-started)
    * [Code Scaffolding](#code-scaffolding)
    * [Build](#build)
+   * [Deployment](#deployment)
    * [Database](#database)
    * [Sending Email functionality](#sending-email-functionality)
    * [Screenshot](#screenshot)
@@ -62,7 +63,7 @@ For changing where the `dist/` folder is created please modify `SydneyHappening/
 If you change the location to save `dist/` directory, please update `SydneyHappening/server/app.js` with correct path. 
 
 ## Deployment
-For deployment, Navigate to `SydneyHappening/client/` and run command: `ng build` to build the angular side of the project. This would create a directory named `dist/` in `SydneyHappening/server/` folder. You can deploy the project as a Node.js project from this directory. 
+For deployment, Navigate to `SydneyHappening/client/` and run command: `ng build` to build the angular side of the project. This would create a directory named `dist/` in `SydneyHappening/server/` folder. You can deploy the project as a Node.js project from this directory. <br>
 For deploying into Heroku server, [follow these steps](https://devcenter.heroku.com/articles/deploying-nodejs).
 **Note:**
 The domainURL of the server needs to be updated on  `SydneyHappening/client/src/environments/environment.ts` <br>
